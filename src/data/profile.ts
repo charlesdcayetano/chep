@@ -1,7 +1,7 @@
 export const profile = {
   name: 'Charles D. Cayetano',
   handle: 'Chep',
-  title: 'Front-End & Aspiring Full-Stack Developer',
+  title: 'Full-Stack Developer',
   location: 'Roxas City, Capiz, Philippines',
   availability: 'Available for Engineering Roles',
   email: 'cayetanocharlesd92000@gmail.com',
