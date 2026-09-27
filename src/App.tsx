@@ -15,14 +15,14 @@ export default function App() {
       <main className="max-w-content mx-auto px-5 sm:px-6">
         <ProfileHeader />
         <About />
-        <GithubActivity />
         <Skills />
-        <Projects />
+        {/* <GithubActivity /> */}
+        {/* <Projects /> */}
         <Experience />
-        <Education />
-        <Certifications />
-        <Contact />
-        <Footer />
+        {/* <Education />
+        <Certifications /> */}
+        {/* <Contact /> */}
+        {/* <Footer /> */}
       </main>
     </div>
   )
