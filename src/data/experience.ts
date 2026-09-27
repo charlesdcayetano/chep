@@ -8,7 +8,7 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
-    role: 'Freelance Front-End & Full-Stack Developer',
+    role: 'Freelance Full-Stack Developer',
     period: '2025 — Present',
     org: 'Independent Practice',
     location: 'Philippines',

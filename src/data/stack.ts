@@ -19,7 +19,7 @@ export const skillGroups = [
   },
   {
     label: 'Tools & Design',
-    skills: ['Git', 'GitHub', 'Vite', 'VS Code', 'Figma', 'Canva'],
+    skills: ['Git', 'GitHub', 'Vite', 'VS Code', 'Figma'],
   },
   {
     label: 'Automation & Deployment',
