@@ -1,3 +1,5 @@
+import { LanguageProvider } from './i18n/LanguageContext'
+import Nav from './components/Nav'
 import ProfileHeader from './components/ProfileHeader'
 import About from './components/About'
 import GithubActivity from './components/GithubActivity'
@@ -11,19 +13,22 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <div className="min-h-screen">
-      <main className="max-w-content mx-auto px-5 sm:px-6">
-        <ProfileHeader />
-        <About />
-        <Skills />
-        <GithubActivity />
-        <Projects />
-        <Experience />
-        <Education />
-        <Certifications />
-        <Contact />
-        <Footer />
-      </main>
-    </div>
+    <LanguageProvider>
+      <div className="min-h-screen">
+        <main className="max-w-content mx-auto px-5 sm:px-6">
+          <Nav />
+          <ProfileHeader />
+          <About />
+          <Skills />
+          <GithubActivity />
+          <Projects />
+          <Experience />
+          <Education />
+          <Certifications />
+          <Contact />
+          <Footer />
+        </main>
+      </div>
+    </LanguageProvider>
   )
 }
