@@ -23,7 +23,7 @@ export const skillGroups = [
   },
   {
     label: 'Automation & Deployment',
-    skills: ['n8n', 'Vercel', 'Netlify'],
+    skills: ['n8n', 'Vercel', 'Netlify', 'Namecheap'],
   },
   {
     label: 'Python',

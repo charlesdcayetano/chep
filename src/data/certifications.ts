@@ -13,13 +13,13 @@ export const certifications: Certification[] = [
     year: '2025',
   },
   {
-    name: 'AMA Computer Servicing ( BAS, MOUS )',
-    issuer: 'AMA Computer College',
-    year: '2025',
-  },
-  {
     name: 'DICT ICT Proficiency Diagnostic Exam',
     issuer: 'Department of Information and Communications Technology',
     year: '2025',
+  },
+  {
+    name: 'AMA Computer Servicing ( BAS, MOUS )',
+    issuer: 'AMA Computer College',
+    year: '2014',
   },
 ]

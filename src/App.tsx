@@ -16,13 +16,13 @@ export default function App() {
         <ProfileHeader />
         <About />
         <Skills />
-        {/* <GithubActivity /> */}
-        {/* <Projects /> */}
+        <GithubActivity />
+        <Projects />
         <Experience />
-        {/* <Education />
-        <Certifications /> */}
-        {/* <Contact /> */}
-        {/* <Footer /> */}
+        <Education />
+        <Certifications />
+        <Contact />
+        <Footer />
       </main>
     </div>
   )

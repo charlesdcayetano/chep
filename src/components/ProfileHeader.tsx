@@ -59,12 +59,12 @@ export default function ProfileHeader() {
         </div>
 
         <img
-          src="/images/Portfolio.webp"
+          src="/images/Portfolioo.webp"
           alt="Portrait of Charles D. Cayetano"
           width={140}
           height={140}
           loading="eager"
-          className="w-[90px] h-[90px] sm:w-[140px] sm:h-[140px] rounded-xl object-cover grayscale hover:grayscale-0 transition-all duration-300 border border-[#E5E5E5] dark:border-[#2A2A2A] shrink-0"
+          className="w-[90px] h-[90px] sm:w-[140px] sm:h-[140px] rounded-xl object-cover hover:grayscale transition-all duration-300 border border-[#E5E5E5] dark:border-[#2A2A2A] shrink-0"
         />
       </div>
 
