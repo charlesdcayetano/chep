@@ -12,7 +12,7 @@ export const profile = {
   portfolio: 'https://chep.website/',
   repo: 'https://github.com/charlesdcayetano/chep',
   heroStatement:
-    'Front-end and full-stack developer building practical web applications, business systems, and digital workflows.',
+    'Full - Stack Developer building practical web applications, business systems, and digital workflows.',
   heroSupporting:
     'I build applications where interfaces, backend logic, databases, and business rules work together.',
   about: [
