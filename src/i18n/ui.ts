@@ -56,7 +56,7 @@ export const uiStrings: Record<Language, UiStrings> = {
     switchToLight: 'Switch to light theme',
     switchToDark: 'Switch to dark theme',
     portraitAlt: (name) => `Portrait of ${name}`,
-    tagline: 'Practical software, built to be used.',
+    tagline: 'I built software to solve real world problems.',
     currently: 'Currently',
     aboutCurrentLabel: 'Right now',
     aboutCurrent:
@@ -91,7 +91,7 @@ export const uiStrings: Record<Language, UiStrings> = {
     switchToLight: 'Lumipat sa light theme',
     switchToDark: 'Lumipat sa dark theme',
     portraitAlt: (name) => `Larawan ni ${name}`,
-    tagline: 'Praktikal na software, ginawa para gamitin.',
+    tagline: 'Ginawa ko ang software para makatulong sa mga tunay na problema.',
     currently: 'Kasalukuyan',
     aboutCurrentLabel: 'Sa ngayon',
     aboutCurrent:

@@ -11,7 +11,7 @@ export const currentJob: {
   period: Localized
   description: Localized[]
 } = {
-  role: { en: 'IT Assistant', fil: 'IT Assistant' },
+  role: { en: 'IT Assistant at Main Office', fil: 'IT Assistant sa Pangunahing Opisina' },
   org: 'PVDCI',
   // TODO: add your start date, e.g. { en: 'Jun 2025 \u2013 Present', fil: 'Hun 2025 \u2013 Kasalukuyan' }
   period: { en: 'Present', fil: 'Kasalukuyan' },
