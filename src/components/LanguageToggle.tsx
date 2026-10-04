@@ -1,5 +1,6 @@
 import { useLanguage } from '../i18n/LanguageContext'
 import type { Language } from '../i18n/LanguageContext'
+import { useUi } from '../i18n/useUi'
 
 const options: { value: Language; label: string; fullLabel: string }[] = [
   { value: 'en', label: 'EN', fullLabel: 'English' },
@@ -8,12 +9,13 @@ const options: { value: Language; label: string; fullLabel: string }[] = [
 
 export default function LanguageToggle() {
   const { language, setLanguage } = useLanguage()
+  const { ui } = useUi()
 
   return (
     <div
       role="group"
-      aria-label="Language"
-      className="inline-flex items-center gap-1 rounded-md border border-[#E5E5E5] dark:border-[#2A2A2A] p-0.5"
+      aria-label={ui.languageLabel}
+      className="inline-flex h-9 items-center gap-0.5 rounded-md border rule p-0.5"
     >
       {options.map((opt) => (
         <button
@@ -22,10 +24,10 @@ export default function LanguageToggle() {
           aria-label={opt.fullLabel}
           aria-pressed={language === opt.value}
           onClick={() => setLanguage(opt.value)}
-          className={`px-2 py-1 rounded text-[11px] font-mono font-semibold transition-colors duration-150 ${
+          className={`h-full rounded px-2.5 font-mono text-[11px] font-semibold transition-colors duration-150 ${
             language === opt.value
               ? 'bg-[#171717] text-[#FAFAFA] dark:bg-[#F5F5F5] dark:text-[#111111]'
-              : 'text-[#666666] dark:text-[#A3A3A3] hover:text-[#171717] dark:hover:text-[#F5F5F5]'
+              : 't-muted hover:text-[#171717] dark:hover:text-[#F5F5F5]'
           }`}
         >
           {opt.label}

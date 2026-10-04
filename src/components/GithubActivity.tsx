@@ -1,36 +1,53 @@
+import { useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { profile } from '../data/profile'
+import { Section } from './Section'
+import { useUi } from '../i18n/useUi'
+
+/** "https://github.com/user" -> "user" */
+function githubUsername(url: string): string {
+  const last = url.split('/').filter(Boolean).pop()
+  return last && !last.includes('.') ? last : 'charlesdcayetano'
+}
 
 export default function GithubActivity() {
-  return (
-    <section
-      id="github"
-      aria-labelledby="github-heading"
-      className="py-6 border-t border-[#E5E5E5] dark:border-[#2A2A2A]"
-    >
-      <p className="section-label mb-4">GitHub</p>
-      <h2 id="github-heading" className="sr-only">
-        GitHub Activity
-      </h2>
+  const { ui } = useUi()
+  const scroller = useRef<HTMLDivElement>(null)
+  const username = githubUsername(profile.github)
 
-      <div className="overflow-x-auto rounded-lg border border-[#E5E5E5] dark:border-[#2A2A2A] p-4 bg-white/40 dark:bg-white/[0.02]">
+  // On phones the chart is wider than the screen; start at the right edge so the
+  // most recent contributions are visible first.
+  function showLatest() {
+    const el = scroller.current
+    if (el) el.scrollLeft = el.scrollWidth
+  }
+
+  return (
+    <Section id="github" title={ui.githubLabel}>
+      <div ref={scroller} className="surface overflow-x-auto rounded-lg border rule p-4">
+        {/* Black chart, forced to greyscale. In dark mode it is inverted (black -> white), and
+            it follows the theme toggle because it uses the same `dark:` variant as the rest of the page. */}
         <img
-          src={`https://ghchart.rshah.org/B45309/${'charlesdcayetano'}`}
-          alt="Charles D. Cayetano's GitHub contribution graph"
-          className="min-w-[600px] w-full dark:invert-[0.92] dark:hue-rotate-180"
+          src={`https://ghchart.rshah.org/000000/${username}`}
+          alt={ui.githubChartAlt(profile.name)}
+          width={722}
+          height={112}
           loading="lazy"
+          decoding="async"
+          onLoad={showLatest}
+          className="h-auto w-full min-w-[600px] grayscale dark:invert"
         />
       </div>
 
       <a
-        href={`${profile.github}`}
+        href={profile.github}
         target="_blank"
         rel="noopener noreferrer"
-        className="link-arrow text-sm mt-4"
+        className="link-arrow mt-4 inline-flex min-h-[44px] text-sm"
       >
-        View GitHub activity
-        <ArrowUpRight size={12} />
+        {ui.viewGithub}
+        <ArrowUpRight size={12} aria-hidden="true" />
       </a>
-    </section>
+    </Section>
   )
 }
