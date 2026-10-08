@@ -56,7 +56,7 @@ export const uiStrings: Record<Language, UiStrings> = {
     switchToLight: 'Switch to light theme',
     switchToDark: 'Switch to dark theme',
     portraitAlt: (name) => `Portrait of ${name}`,
-    tagline: 'I build software to solve real world problems.',
+    tagline: 'I build software for real-world problems.',
     currently: 'Currently',
     aboutCurrentLabel: 'Right now',
     aboutCurrent:
