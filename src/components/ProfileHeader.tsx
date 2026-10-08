@@ -2,16 +2,21 @@ import { useState } from 'react'
 import { BadgeCheck, Code, Mail, MapPin } from 'lucide-react'
 import { FaGithub, FaLinkedin, FaFacebook, FaXTwitter } from 'react-icons/fa6'
 import type { IconType } from 'react-icons'
+import { Mascot } from 'page-mascot'
 import { profile } from '../data/profile'
 import { currentJob } from '../data/currentJob'
 import { translations } from '../i18n/translations'
 import { useUi } from '../i18n/useUi'
 
-// The original file stays as the fallback. `npm run optimize:images` creates the
-// smaller copies listed here so phones download ~5-15 KB instead of the full file.
-const AVATAR = '/images/Portfolioo.webp'
-const AVATAR_WIDTHS = [120, 240, 360]
-const AVATAR_SRCSET = AVATAR_WIDTHS.map((w) => `/images/Portfolioo-${w}.webp ${w}w`).join(', ')
+const MASCOTS = [
+  { id: 'fox', name: 'Fox', emoji: '🦊' },
+  { id: 'skater', name: 'Skater', emoji: '🛹' },
+  { id: 'otter', name: 'Otter', emoji: '🦦' },
+  { id: 'cat', name: 'Cat', emoji: '🐱' },
+  { id: 'builder', name: 'Builder', emoji: '👷' },
+] as const
+
+type MascotId = (typeof MASCOTS)[number]['id']
 
 /** Strips the scheme and "www." so a URL reads like plain text ("github.com/x"). */
 function displayUrl(url: string): string {
@@ -52,23 +57,54 @@ function ContactChip({
 export default function ProfileHeader() {
   const { language, ui, t } = useUi()
   const copy = translations[language]
-  // If the resized copies have not been generated yet, fall back to the single file.
-  const [useSrcSet, setUseSrcSet] = useState(true)
+
+  const [mascotId, setMascotId] = useState<MascotId>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('cdc-mascot') as MascotId
+      if (saved && MASCOTS.some((m) => m.id === saved)) return saved
+    }
+    return 'fox'
+  })
+
+  const currentMascot = MASCOTS.find((m) => m.id === mascotId) ?? MASCOTS[0]
+
+  const handleNextMascot = () => {
+    const currentIndex = MASCOTS.findIndex((m) => m.id === mascotId)
+    const nextIndex = (currentIndex + 1) % MASCOTS.length
+    const next = MASCOTS[nextIndex].id
+    setMascotId(next)
+    try {
+      localStorage.setItem('cdc-mascot', next)
+    } catch {
+      // ignore storage errors
+    }
+  }
 
   return (
     <header id="top" className="scroll-mt-20 pb-8 pt-10 sm:pb-10 sm:pt-14">
       <div className="rise flex items-center gap-4 sm:gap-6" style={{ ['--d' as string]: '0ms' }}>
-        <img
-          src={AVATAR}
-          {...(useSrcSet ? { srcSet: AVATAR_SRCSET, sizes: '(min-width: 640px) 112px, 88px' } : {})}
-          alt={ui.portraitAlt(profile.name)}
-          width={112}
-          height={112}
-          loading="eager"
-          decoding="async"
-          onError={() => setUseSrcSet(false)}
-          className="h-[88px] w-[88px] shrink-0 rounded-2xl border rule object-cover shadow-sm sm:h-28 sm:w-28"
-        />
+        <div className="group relative shrink-0">
+          <div className="flex h-[88px] w-[88px] items-center justify-center rounded-2xl border rule surface shadow-sm transition-all sm:h-28 sm:w-28">
+            <Mascot
+              directions={`/mascots/${currentMascot.id}-directions.webp`}
+              reactions={`/mascots/${currentMascot.id}-reactions.webp`}
+              size={88}
+              className="sm:!w-[112px] sm:!h-[112px]"
+              label={`${currentMascot.name} mascot for ${profile.name}`}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={handleNextMascot}
+            title={`Current mascot: ${currentMascot.name}. Click to switch character.`}
+            aria-label={`Current mascot: ${currentMascot.name}. Click to switch character.`}
+            className="surface absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border rule text-xs shadow-sm transition-transform hover:scale-115 active:scale-95"
+          >
+            <span role="img" aria-hidden="true">
+              {currentMascot.emoji}
+            </span>
+          </button>
+        </div>
         <div className="min-w-0">
           <h1 className="text-[1.75rem] font-bold leading-[1.1] tracking-tight sm:text-4xl">
             {profile.name}
