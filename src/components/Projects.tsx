@@ -11,16 +11,32 @@ export default function Projects() {
       <ul className="divide-y rule">
         {projects.map((project) => (
           <li key={project.index} className="py-6 first:pt-0 last:pb-0">
-            <h3 className="text-base font-semibold [overflow-wrap:anywhere]">
-              {t(project.name)}
-              {project.fullName && (
-                <span className="t-muted font-normal"> — {t(project.fullName)}</span>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
+              <h3 className="text-base font-semibold [overflow-wrap:anywhere]">
+                {t(project.name)}
+                {project.fullName && (
+                  <span className="t-muted font-normal"> — {t(project.fullName)}</span>
+                )}
+              </h3>
+              {project.category && (
+                <span className="t-faint font-mono text-xs">{project.category}</span>
               )}
-            </h3>
-            <p className="t-muted mt-1.5 text-sm leading-relaxed">{t(project.description)}</p>
+            </div>
+            <p className="t-muted mt-2 text-sm leading-relaxed">{t(project.description)}</p>
+
+            {project.focus && project.focus.length > 0 && (
+              <ul className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-xs t-faint">
+                {project.focus.map((item, idx) => (
+                  <li key={idx} className="flex items-center gap-1.5">
+                    <span className="t-accent" aria-hidden="true">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
 
             {project.note && (
-              <p className="t-faint mt-1.5 text-xs italic leading-relaxed">{t(project.note)}</p>
+              <p className="t-faint mt-2 text-xs italic leading-relaxed">{t(project.note)}</p>
             )}
 
             <ul className="mt-3 flex flex-wrap gap-2" aria-label={ui.technologiesUsed(t(project.name))}>

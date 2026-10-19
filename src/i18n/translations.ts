@@ -28,7 +28,7 @@ export const translations: Record<Language, {
     aboutHeading: 'About',
     aboutIntro: 'Hello there!',
     about: [
-      'BS Information Technology graduate building practical applications and business systems — academic management, healthcare workflows, booking systems, and public-service platforms.',
+      'BS Information Technology graduate building practical applications and business systems — cooperative billing & loan platforms, academic management, healthcare workflows, and public-service tools.',
       'Based in Roxas City, Capiz, Philippines. Continuously learning, and open to engineering opportunities.',
     ],
   },
@@ -41,7 +41,7 @@ export const translations: Record<Language, {
     aboutHeading: 'Tungkol Sa Akin',
     aboutIntro: 'Kumusta!',
     about: [
-      'Isang BS Information Technology graduate na gumagawa ng praktikal na aplikasyon at business systems — academic management, healthcare workflows, booking systems, at public-service platforms.',
+      'Isang BS Information Technology graduate na gumagawa ng praktikal na aplikasyon at business systems — cooperative billing at loan platforms, academic management, healthcare workflows, at public-service tools.',
       'Naninirahan sa Roxas City, Capiz, Philippines. Patuloy na natututo, at bukas sa mga oportunidad sa larangan ng engineering.',
     ],
   },

@@ -12,21 +12,21 @@ export const currentJob: {
   description: Localized[]
 } = {
   role: { en: 'IT Assistant at Main Office', fil: 'IT Assistant sa Pangunahing Opisina' },
-  org: 'PVDCI',
+  org: 'PVDCI Coop',
   // TODO: add your start date, e.g. { en: 'Jun 2025 \u2013 Present', fil: 'Hun 2025 \u2013 Kasalukuyan' }
   period: { en: 'Present', fil: 'Kasalukuyan' },
   description: [
     {
-      en: 'Provide day-to-day technical support, resolving hardware, software, and network issues.',
-      fil: 'Nagbibigay ng pang-araw-araw na technical support at nilulutas ang mga isyu sa hardware, software, at network.',
+      en: 'Lead developer for core cooperative platforms: LinkCoop (Cable Internet & Billing Management System) and Hulamverde (Loan Management & Billing System).',
+      fil: 'Pangunahing developer para sa mga sistema ng kooperatiba: LinkCoop (Cable Internet & Billing Management System) at Hulamverde (Loan Management & Billing System).',
     },
     {
-      en: 'Set up and maintain computers, peripherals, and office systems so operations keep running.',
-      fil: 'Nagse-set up at nagmementena ng mga computer, peripheral, at office system para tuloy-tuloy ang operasyon.',
+      en: 'Designed and deployed automated workflows for subscriber billing, loan amortization schedules, interest computation, and member payment records.',
+      fil: 'Nagdisenyo at nagpatupad ng mga automated workflow para sa subscriber billing, loan amortization schedules, interest computation, at records ng pagbabayad ng miyembro.',
     },
     {
-      en: 'Support internal systems and digital workflows, applying web development skills where they save time.',
-      fil: 'Sumusuporta sa mga internal system at digital workflow, at ginagamit ang kasanayan sa web development kung saan nakakatipid ito ng oras.',
+      en: 'Provide day-to-day technical support, managing computer hardware, software installations, and network infrastructure to maintain uninterrupted operations.',
+      fil: 'Nagbibigay ng pang-araw-araw na technical support, nagpapanatili ng computer hardware, software installations, at network infrastructure para sa tuloy-tuloy na operasyon.',
     },
   ],
 }

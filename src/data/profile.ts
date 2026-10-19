@@ -16,7 +16,7 @@ export const profile = {
   heroSupporting:
     'I build applications where interfaces, backend logic, databases, and business rules work together.',
   about: [
-    'BS Information Technology graduate building practical applications and business systems — academic management, healthcare workflows, booking systems, and public-service platforms.',
+    'BS Information Technology graduate building practical applications and business systems — cooperative billing & loan platforms, academic management, healthcare workflows, and public-service tools.',
     'Based in Roxas City, Capiz, Philippines. Continuously learning, and open to engineering opportunities.',
   ],
 }
