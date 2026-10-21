@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import {
   ChevronDown,
   Calendar,
@@ -186,55 +185,51 @@ export default function Experience() {
                 </div>
               </div>
 
-              {/* Expandable Details Container with Silky Spring Animation */}
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden border-t border-zinc-100 dark:border-zinc-800"
-                  >
-                    <div className="px-4 sm:px-5 pb-5 pt-3.5 space-y-4">
-                      {/* Technologies & Tools Pills */}
-                      {job.technologies.length > 0 && (
-                        <div>
-                          <h4 className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-2">
-                            Technologies &amp; Systems
-                          </h4>
-                          <div className="flex flex-wrap gap-2">
-                            {job.technologies.map((tech) => (
-                              <span
-                                key={tech.name}
-                                className="skill-inner-shadow inline-flex items-center gap-1.5 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-100/70 dark:bg-zinc-800/60 px-2.5 py-1 text-xs font-medium text-foreground transition-all duration-200 hover:border-zinc-400"
-                              >
-                                <span className="text-sm shrink-0">{tech.icon}</span>
-                                <span>{tech.name}</span>
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Bullet points */}
+              {/* Expandable Details Container with Smooth CSS Grid Accordion */}
+              <div
+                className={`grid transition-all duration-300 ease-out overflow-hidden border-t border-zinc-100 dark:border-zinc-800 ${
+                  isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                }`}
+              >
+                <div className="min-h-0">
+                  <div className="px-4 sm:px-5 pb-5 pt-3.5 space-y-4">
+                    {/* Technologies & Tools Pills */}
+                    {job.technologies.length > 0 && (
                       <div>
-                        <h4 className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-2">
-                          Key Contributions &amp; Scope
+                        <h4 className="text-[11px] font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-2">
+                          Technologies &amp; Systems
                         </h4>
-                        <ul className="space-y-2 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                          {job.description.map((line, i) => (
-                            <li key={i} className="flex items-start gap-2.5">
-                              <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500 mt-2 shrink-0" />
-                              <span className="min-w-0">{line}</span>
-                            </li>
+                        <div className="flex flex-wrap gap-2">
+                          {job.technologies.map((tech) => (
+                            <span
+                              key={tech.name}
+                              className="skill-inner-shadow inline-flex items-center gap-1.5 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-100/70 dark:bg-zinc-800/60 px-2.5 py-1 text-xs font-medium text-foreground transition-all duration-200 hover:border-zinc-400"
+                            >
+                              <span aria-hidden="true" className="text-sm shrink-0">{tech.icon}</span>
+                              <span>{tech.name}</span>
+                            </span>
                           ))}
-                        </ul>
+                        </div>
                       </div>
+                    )}
+
+                    {/* Bullet points */}
+                    <div>
+                      <h4 className="text-[11px] font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-2">
+                        Key Contributions &amp; Scope
+                      </h4>
+                      <ul className="space-y-2 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                        {job.description.map((line, i) => (
+                          <li key={i} className="flex items-start gap-2.5">
+                            <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500 mt-2 shrink-0" />
+                            <span className="min-w-0">{line}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  </div>
+                </div>
+              </div>
             </div>
           )
         })}

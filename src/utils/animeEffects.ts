@@ -10,13 +10,13 @@ import anime from 'animejs'
 export function animatePageEntrance(containerSelector = '#main') {
   if (typeof window === 'undefined') return
 
-  // Stagger sections and cards smoothly without breaking sticky on aside
+  // Stagger sections smoothly without delaying first contentful paint
   anime({
     targets: `${containerSelector} > section`,
-    translateY: [24, 0],
-    opacity: [0, 1],
-    delay: anime.stagger(100, { start: 100 }),
-    duration: 650,
+    translateY: [12, 0],
+    opacity: [0.95, 1],
+    delay: anime.stagger(40, { start: 20 }),
+    duration: 350,
     easing: 'easeOutCubic',
   })
 }

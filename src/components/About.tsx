@@ -49,7 +49,7 @@ export default function About() {
 
       <div className="mt-8 flex flex-col gap-6">
         {/* Charles's Portrait Card */}
-        <div className="group overflow-hidden rounded-xl w-fit">
+        <div className="relative group overflow-hidden rounded-xl w-fit">
           <img
             alt={profile.name}
             loading="lazy"
@@ -86,10 +86,13 @@ export default function About() {
                     onMouseLeave={() => setActiveTooltip(null)}
                   >
                     <div
-                      className="size-6 transition-transform hover:scale-125 hover:cursor-pointer flex items-center justify-center text-muted-foreground hover:text-foreground"
+                      role="img"
                       aria-label={tech.name}
+                      title={tech.name}
+                      className="size-6 transition-transform hover:scale-125 hover:cursor-pointer flex items-center justify-center text-muted-foreground hover:text-foreground"
                     >
                       <IconComponent
+                        aria-hidden="true"
                         className="size-5 sm:size-6 transition-colors"
                         style={{ color: tech.color !== 'currentColor' ? tech.color : undefined }}
                       />

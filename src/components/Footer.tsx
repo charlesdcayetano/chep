@@ -11,19 +11,19 @@ export default function Footer() {
   }
 
   return (
-    <footer className="mt-20 border-t border-zinc-200 dark:border-zinc-800 py-10 text-xs text-zinc-500">
+    <footer className="mt-20 border-t border-zinc-200 dark:border-zinc-800 py-10 text-xs text-zinc-600 dark:text-zinc-400">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <p className="font-semibold text-foreground text-sm font-display">
             {profile.name}
           </p>
-          <p className="text-zinc-500">{profile.title}</p>
-          <p className="font-mono text-[11px] text-zinc-400">
+          <p className="text-zinc-600 dark:text-zinc-400">{profile.title}</p>
+          <p className="font-mono text-[11px] text-zinc-600 dark:text-zinc-400">
             {ui.footerLocation}
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
+        <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-zinc-600 dark:text-zinc-400">
           <a
             href={profile.github}
             target="_blank"
@@ -58,7 +58,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-zinc-400 font-mono gap-2">
+      <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-zinc-600 dark:text-zinc-400 font-mono gap-2">
         <p>© {year} {profile.name}. All rights reserved.</p>
         <p>Built with React &bull; TypeScript &bull; Tailwind CSS</p>
       </div>

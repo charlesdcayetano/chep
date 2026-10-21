@@ -22,16 +22,16 @@ export default function Contact() {
           <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground font-display">
             {ui.contactHeading}
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-0.5">
             {ui.contactText}
           </p>
         </div>
-        <span className="text-xs font-mono text-zinc-400">Get in touch</span>
+        <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400">Get in touch</span>
       </div>
 
       <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 p-6 sm:p-8 space-y-6">
         <div className="space-y-2">
-          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider font-mono">
+          <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400 uppercase tracking-wider font-mono">
             Direct Inquiry
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4">
@@ -40,7 +40,7 @@ export default function Contact() {
                 <Mail size={18} />
               </span>
               <div className="min-w-0">
-                <p className="text-xs text-zinc-400 font-mono">Email Address</p>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 font-mono">Email Address</p>
                 <p className="font-mono text-sm sm:text-base font-semibold text-foreground truncate">
                   {profile.email}
                 </p>
@@ -74,7 +74,7 @@ export default function Contact() {
 
         {/* Social channels */}
         <div className="pt-2 border-t border-zinc-200/80 dark:border-zinc-800">
-          <p className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-3">
+          <p className="text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-3">
             Social &amp; Developer Profiles
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -85,7 +85,7 @@ export default function Contact() {
               className="flex items-center justify-between p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-xs font-medium text-foreground hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
             >
               <span className="flex items-center gap-2">
-                <FaGithub size={14} />
+                <FaGithub aria-hidden="true" size={14} />
                 <span>GitHub</span>
               </span>
               <ArrowUpRight size={12} className="text-zinc-400" />
@@ -98,7 +98,7 @@ export default function Contact() {
               className="flex items-center justify-between p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-xs font-medium text-foreground hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
             >
               <span className="flex items-center gap-2">
-                <FaLinkedin size={14} />
+                <FaLinkedin aria-hidden="true" size={14} />
                 <span>LinkedIn</span>
               </span>
               <ArrowUpRight size={12} className="text-zinc-400" />
@@ -111,7 +111,7 @@ export default function Contact() {
               className="flex items-center justify-between p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-xs font-medium text-foreground hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
             >
               <span className="flex items-center gap-2">
-                <FaFacebook size={14} />
+                <FaFacebook aria-hidden="true" size={14} />
                 <span>Facebook</span>
               </span>
               <ArrowUpRight size={12} className="text-zinc-400" />
@@ -124,7 +124,7 @@ export default function Contact() {
               className="flex items-center justify-between p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-xs font-medium text-foreground hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
             >
               <span className="flex items-center gap-2">
-                <FaXTwitter size={14} />
+                <FaXTwitter aria-hidden="true" size={14} />
                 <span>X (Twitter)</span>
               </span>
               <ArrowUpRight size={12} className="text-zinc-400" />

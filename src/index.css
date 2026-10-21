@@ -51,6 +51,24 @@ body {
   min-width: 0;
 }
 
+/* Sabine Sun dot-matrix background with smooth organic vignette */
+.sabine-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(#d8e5f2b3 1px, transparent 1px);
+  background-size: 20px 20px;
+  -webkit-mask-image: radial-gradient(ellipse 50% 75% at 50% 50%, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 75% at 50% 50%, #000 70%, transparent 100%);
+}
+
+.dark .sabine-bg {
+  background-image: radial-gradient(#ffffff25 1px, transparent 1px);
+}
+
 ::selection {
   background-color: #09090b;
   color: #ffffff;

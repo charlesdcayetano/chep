@@ -3,8 +3,8 @@ import type { Language } from '../i18n/LanguageContext'
 import { useUi } from '../i18n/useUi'
 
 const options: { value: Language; label: string; fullLabel: string }[] = [
-  { value: 'en', label: 'EN', fullLabel: 'English' },
-  { value: 'fil', label: 'FIL', fullLabel: 'Filipino' },
+  { value: 'en', label: 'EN', fullLabel: 'EN — English' },
+  { value: 'fil', label: 'FIL', fullLabel: 'FIL — Filipino' },
 ]
 
 export default function LanguageToggle() {

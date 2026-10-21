@@ -72,11 +72,11 @@ export default function Skills() {
           <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground font-display">
             {ui.skills}
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-0.5">
             Full-stack technologies, frameworks, and developer workflows
           </p>
         </div>
-        <span className="text-xs font-mono text-zinc-400">Core Stack</span>
+        <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400">Core Stack</span>
       </div>
 
       {/* Categorized Skills Grid */}
@@ -91,7 +91,7 @@ export default function Skills() {
                 <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500" />
                 {ui.skillGroups[group.label] ?? group.label}
               </h3>
-              <span className="font-mono text-[10px] text-zinc-400">
+              <span className="font-mono text-[10px] text-zinc-600 dark:text-zinc-400">
                 {group.skills.length} tools
               </span>
             </div>
@@ -104,8 +104,8 @@ export default function Skills() {
                   onMouseLeave={(e) => animateBadgeLeave(e.currentTarget)}
                   className="skill-inner-shadow cursor-default inline-flex items-center gap-1.5 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900/80 px-2.5 py-1 text-xs font-medium text-foreground hover:border-zinc-900 dark:hover:border-zinc-100 transition-colors"
                 >
-                  <span className="text-sm shrink-0">
-                    {iconMap[skill] ?? <Cpu size={13} />}
+                  <span aria-hidden="true" className="text-sm shrink-0">
+                    {iconMap[skill] ?? <Cpu size={13} aria-hidden="true" />}
                   </span>
                   <span>{skill}</span>
                 </div>

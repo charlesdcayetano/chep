@@ -37,13 +37,24 @@
     <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 
-    <!-- Fonts -->
+    <!-- Preload LCP Avatar -->
+    <link rel="preload" as="image" href="/images/Portfolio.webp" type="image/webp" fetchpriority="high" />
+
+    <!-- Non-Render-Blocking Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=optional"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=optional"
+      />
+    </noscript>
 
     <script>
       // Apply theme before paint to avoid flash-of-wrong-theme.
@@ -57,7 +68,95 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="top" class="relative min-h-screen bg-background text-foreground antialiased transition-colors duration-200">
+        <div class="sabine-bg" aria-hidden="true"></div>
+        <div class="relative z-10">
+          <nav aria-label="Main Navigation" class="fixed left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1.5rem)] sm:w-[calc(100%-2rem)] max-w-5xl top-6 h-16 rounded-3xl border border-border/40 dark:border-white/10 bg-background/80 backdrop-blur-xl px-6 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <img src="/images/Portfolio.webp" alt="Charles D. Cayetano avatar" width="24" height="24" class="size-6 sm:size-7 rounded-full object-cover ring-1 ring-border/60" />
+            <span class="text-xs sm:text-sm font-semibold tracking-tight text-foreground">Chep</span>
+          </div>
+        </nav>
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-36 pb-20">
+          <div class="flex flex-col lg:flex-row gap-10 xl:gap-14">
+            <aside class="w-full lg:w-64 xl:w-72 lg:shrink-0">
+              <div class="lg:sticky lg:top-28 space-y-5">
+                <div class="flex items-center justify-between lg:flex-col lg:items-start gap-4">
+                  <div class="size-20 sm:size-24 rounded-full overflow-hidden ring-2 ring-zinc-300 dark:ring-zinc-700/80 shadow-md bg-zinc-100 dark:bg-zinc-900">
+                    <img src="/images/Portfolio.webp" alt="Charles D. Cayetano portrait" width="96" height="96" fetchpriority="high" class="h-full w-full object-cover" />
+                  </div>
+                  <div class="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400">
+                    <span class="relative flex h-2 w-2">
+                      <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                    </span>
+                    <span>Available for Hire</span>
+                  </div>
+                </div>
+                <div class="space-y-1">
+                  <h1 class="font-display text-2xl sm:text-3xl lg:text-[2.6rem] font-bold tracking-[-0.03em] text-foreground leading-[1.08]">
+                    Charles D. Cayetano
+                  </h1>
+                  <p class="text-base font-medium text-zinc-600 dark:text-zinc-400 tracking-tight">
+                    Full-Stack Developer <span class="font-mono text-xs font-normal">(@Chep)</span>
+                  </p>
+                </div>
+                <div class="space-y-2 pt-1 border-y border-zinc-200/80 dark:border-zinc-800/80 py-3">
+                  <div class="flex items-start gap-2.5 text-xs">
+                    <div class="min-w-0">
+                      <span class="font-mono text-[10px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">Current Role</span>
+                      <span class="font-semibold text-foreground text-xs leading-tight">IT Assistant at Main Office @PVDCI Coop</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2.5 text-xs">
+                    <div class="min-w-0">
+                      <span class="font-mono text-[10px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">Location</span>
+                      <span class="font-medium text-foreground text-xs">Roxas City, Capiz, Philippines</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-xs sm:text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                  <span class="inline-flex flex-wrap items-center gap-x-1.5 gap-y-1.5">
+                    <span>I build production-ready applications using </span>
+                    <span class="skill-inner-shadow inline-flex items-center rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white">Laravel</span>
+                    <span>, </span>
+                    <span class="skill-inner-shadow inline-flex items-center rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white">React</span>
+                    <span>, </span>
+                    <span class="skill-inner-shadow inline-flex items-center rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white">Next.js</span>
+                    <span>, </span>
+                    <span class="skill-inner-shadow inline-flex items-center rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white">TypeScript</span>
+                    <span>, </span>
+                    <span class="skill-inner-shadow inline-flex items-center rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white">MySQL</span>
+                    <span> and </span>
+                    <span class="skill-inner-shadow inline-flex items-center rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white">PostgreSQL</span>
+                    <span>. Specialized in core cooperative platforms, automated billing engines, and practical full-stack software.</span>
+                  </span>
+                </p>
+              </div>
+            </aside>
+            <main id="main" class="min-w-0 flex-1 space-y-16">
+              <section id="experience" class="scroll-mt-28 space-y-6">
+                <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+                  <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground font-display">Professional Experience</h2>
+                </div>
+                <div class="space-y-4">
+                  <div class="rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 p-4 sm:p-6">
+                    <span class="font-bold text-base sm:text-lg text-foreground">IT Assistant at Main Office</span>
+                    <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1">PVDCI Coop &bull; Nov 2025 &mdash; Present</p>
+                    <ul class="space-y-2 pt-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+                      <li class="flex items-start gap-2">
+                        <span class="min-w-0">Lead developer for core cooperative platforms: LinkCoop (Cable Internet &amp; Billing Management System) and Advenvento (Loan Management &amp; Billing System)</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            </main>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

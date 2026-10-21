@@ -29,7 +29,7 @@ export default function GithubActivity() {
           href={profile.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs font-mono text-zinc-500 hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-mono text-zinc-600 dark:text-zinc-400 hover:text-foreground transition-colors"
         >
           <span>@{username}</span>
           <ArrowUpRight size={11} />
@@ -50,8 +50,8 @@ export default function GithubActivity() {
           />
         </div>
 
-        <div className="flex items-center justify-between text-xs text-zinc-500 pt-1">
-          <span className="flex items-center gap-1.5 font-mono text-[11px]">
+        <div className="flex items-center justify-between text-xs text-zinc-600 dark:text-zinc-400 pt-1">
+          <span className="flex items-center gap-1.5 font-mono text-[11px] text-zinc-600 dark:text-zinc-400">
             <GitCommit size={13} className="text-emerald-500" />
             Continuous commits &amp; daily development
           </span>

@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext'
 import { useUi } from './i18n/useUi'
 import Nav from './components/Nav'
-import CommandPalette from './components/CommandPalette'
 import ProfileHeader from './components/ProfileHeader'
 import Experience from './components/Experience'
-import Projects from './components/Projects'
-import About from './components/About'
-import Skills from './components/Skills'
-import GithubActivity from './components/GithubActivity'
-import Education from './components/Education'
-import Certifications from './components/Certifications'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import { animatePageEntrance } from './utils/animeEffects'
+import DeferredSection from './components/DeferredSection'
+
+const Projects = lazy(() => import('./components/Projects'))
+const About = lazy(() => import('./components/About'))
+const GithubActivity = lazy(() => import('./components/GithubActivity'))
+const Skills = lazy(() => import('./components/Skills'))
+const Education = lazy(() => import('./components/Education'))
+const Certifications = lazy(() => import('./components/Certifications'))
+const Contact = lazy(() => import('./components/Contact'))
+const Footer = lazy(() => import('./components/Footer'))
+const CommandPalette = lazy(() => import('./components/CommandPalette'))
 
 function DocumentLang() {
   const { language } = useLanguage()
@@ -38,11 +39,6 @@ function SkipLink() {
 function PortfolioContent() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
 
-  // Staggered page entrance animation via Anime.js
-  useEffect(() => {
-    animatePageEntrance('#main')
-  }, [])
-
   // Global Ctrl+K / Cmd+K handler
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -56,34 +52,62 @@ function PortfolioContent() {
   }, [])
 
   return (
-    <div id="top" className="min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background transition-colors duration-200">
-      {/* Morphing Floating Pill Navbar */}
-      <Nav onOpenSearch={() => setIsSearchOpen(true)} />
+    <div id="top" className="relative min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background transition-colors duration-200">
+      {/* Sabine Sun dot-matrix background (strictly behind all content) */}
+      <div className="sabine-bg" aria-hidden="true" />
 
-      {/* Global Command Search Palette */}
-      <CommandPalette
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-      />
+      {/* Main interactive content layer (elevated above background) */}
+      <div className="relative z-10">
+        {/* Morphing Floating Pill Navbar */}
+        <Nav onOpenSearch={() => setIsSearchOpen(true)} />
 
-      {/* 2-Column Kroszborg Layout */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-36 pb-20">
-        <div className="flex flex-col lg:flex-row gap-10 xl:gap-14">
-          {/* Left Column: Sticky Profile Sidebar */}
-          <ProfileHeader />
+        {/* Global Command Search Palette - Lazy loaded on demand */}
+        {isSearchOpen && (
+          <Suspense fallback={null}>
+            <CommandPalette
+              isOpen={isSearchOpen}
+              onClose={() => setIsSearchOpen(false)}
+            />
+          </Suspense>
+        )}
 
-          {/* Right Column: Wide Content Stream */}
-          <main id="main" className="min-w-0 flex-1 space-y-16">
-            <Experience />
-            <Projects />
-            <About />
-            <Skills />
-            <GithubActivity />
-            <Education />
-            <Certifications />
-            <Contact />
-            <Footer />
-          </main>
+        {/* 2-Column Kroszborg Layout */}
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-36 pb-20">
+          <div className="flex flex-col lg:flex-row gap-10 xl:gap-14">
+            {/* Left Column: Sticky Profile Sidebar */}
+            <ProfileHeader />
+
+            {/* Right Column: Wide Content Stream */}
+            <main id="main" className="min-w-0 flex-1 space-y-16">
+              <Experience />
+              <Suspense fallback={null}>
+                <DeferredSection id="projects" minHeight="480px">
+                  <Projects />
+                </DeferredSection>
+                <DeferredSection id="about" minHeight="240px">
+                  <About />
+                </DeferredSection>
+                <DeferredSection id="github" minHeight="180px">
+                  <GithubActivity />
+                </DeferredSection>
+                <DeferredSection id="skills" minHeight="360px">
+                  <Skills />
+                </DeferredSection>
+                <DeferredSection id="education" minHeight="180px">
+                  <Education />
+                </DeferredSection>
+                <DeferredSection id="certifications" minHeight="260px">
+                  <Certifications />
+                </DeferredSection>
+                <DeferredSection id="contact" minHeight="260px">
+                  <Contact />
+                </DeferredSection>
+                <DeferredSection id="footer" minHeight="100px">
+                  <Footer />
+                </DeferredSection>
+              </Suspense>
+            </main>
+          </div>
         </div>
       </div>
     </div>

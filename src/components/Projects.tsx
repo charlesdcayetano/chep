@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import {
   ExternalLink,
   Github,
@@ -97,20 +96,13 @@ export default function Projects() {
                 key={cat}
                 type="button"
                 onClick={() => setFilter(cat)}
-                className={`relative whitespace-nowrap px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors duration-200 ${
+                className={`relative whitespace-nowrap px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${
                   isActive
-                    ? 'text-background font-semibold'
-                    : 'text-zinc-500 hover:text-foreground dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
+                    ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 font-semibold shadow-xs'
+                    : 'text-zinc-600 hover:text-foreground dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
                 }`}
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="projectCategoryFilter"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    className="absolute inset-0 rounded-lg bg-foreground shadow-xs -z-10"
-                  />
-                )}
-                <span className="relative z-10">{cat}</span>
+                <span>{cat}</span>
               </button>
             )
           }
@@ -118,22 +110,16 @@ export default function Projects() {
       </div>
 
       {/* Projects Grid: Balanced 2-Column Responsive Layout */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <AnimatePresence mode="popLayout">
-          {filteredProjects.map((project) => (
-            <motion.div
-              layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              key={project.index}
-              className="group relative flex flex-col justify-between rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/70 p-5 sm:p-6 shadow-xs transition-all duration-300 hover:border-zinc-400 dark:hover:border-zinc-600 hover:-translate-y-1 hover:shadow-lg"
-            >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {filteredProjects.map((project) => (
+          <div
+            key={project.index}
+            className="group relative flex flex-col justify-between rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/70 p-5 sm:p-6 shadow-xs transition-all duration-300 hover:border-zinc-400 dark:hover:border-zinc-600 hover:-translate-y-1 hover:shadow-lg"
+          >
             <div>
               {/* Top Row: Index Badge & Status Indicator */}
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-zinc-100 dark:border-zinc-800/80">
-                <span className="font-mono text-xs text-zinc-400 font-semibold tracking-wider">
+                <span className="font-mono text-xs text-zinc-600 dark:text-zinc-400 font-semibold tracking-wider">
                   PROJECT {project.index}
                 </span>
 
@@ -152,12 +138,12 @@ export default function Projects() {
                   <h3 className="font-display text-lg sm:text-xl font-bold text-foreground group-hover:text-zinc-800 dark:group-hover:text-zinc-100 transition-colors">
                     {project.name}
                   </h3>
-                  <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500 shrink-0">
+                  <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400 shrink-0">
                     {project.category}
                   </span>
                 </div>
                 {project.fullName && (
-                  <p className="text-xs text-zinc-500 font-medium">{project.fullName}</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">{project.fullName}</p>
                 )}
               </div>
 
@@ -169,10 +155,10 @@ export default function Projects() {
               {/* Core Features: Complete, cleanly styled tags */}
               {project.focus && project.focus.length > 0 && (
                 <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
-                  <p className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 mb-2">
+                  <p className="text-[10px] font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-2">
                     Key Deliverables
                   </p>
-                  <ul className="space-y-1 text-xs text-zinc-500 dark:text-zinc-400">
+                  <ul className="space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
                     {project.focus.slice(0, 4).map((f, i) => (
                       <li key={i} className="flex items-center gap-2">
                         <span className="h-1 w-1 rounded-full bg-zinc-400 shrink-0" />
@@ -193,7 +179,7 @@ export default function Projects() {
                     key={tech}
                     className="skill-inner-shadow inline-flex items-center gap-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-100/70 dark:bg-zinc-900 px-2 py-0.5 text-[11px] font-mono text-zinc-700 dark:text-zinc-300"
                   >
-                    <span className="text-xs">{techIconMap[tech] || '•'}</span>
+                    <span aria-hidden="true" className="text-xs">{techIconMap[tech] || '•'}</span>
                     <span>{tech}</span>
                   </span>
                 ))}
@@ -201,8 +187,8 @@ export default function Projects() {
 
               {/* Action Links */}
               <div className="flex items-center justify-between text-xs pt-1">
-                <span className="text-[11px] text-zinc-400 font-mono">
-                  {project.note ? 'PVDCI Coop' : 'Full-Stack'}
+                <span className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono">
+                  {project.badge || (project.name === 'LinkCoop' || project.name === 'Hulamverde' ? 'PVDCI Coop' : 'Full-Stack')}
                 </span>
 
                 <div className="flex items-center gap-3">
@@ -211,12 +197,12 @@ export default function Projects() {
                       href={project.repo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`View source code for ${project.name}`}
+                      aria-label={`Code: View source code for ${project.name}`}
                       className="flex items-center gap-1 font-medium text-zinc-600 dark:text-zinc-300 hover:text-foreground transition-colors"
                     >
-                      <Github size={13} />
+                      <Github aria-hidden="true" size={13} />
                       <span>Code</span>
-                      <ArrowUpRight size={10} className="text-zinc-400" />
+                      <ArrowUpRight aria-hidden="true" size={10} className="text-zinc-500 dark:text-zinc-400" />
                     </a>
                   )}
                   {project.live && (
@@ -224,21 +210,20 @@ export default function Projects() {
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`Open live deployment for ${project.name}`}
+                      aria-label={`Live Site: Open live deployment for ${project.name}`}
                       className="flex items-center gap-1 font-medium text-foreground hover:underline transition-colors"
                     >
-                      <ExternalLink size={13} />
+                      <ExternalLink aria-hidden="true" size={13} />
                       <span>Live Site</span>
-                      <ArrowUpRight size={10} className="text-zinc-400" />
+                      <ArrowUpRight aria-hidden="true" size={10} className="text-zinc-500 dark:text-zinc-400" />
                     </a>
                   )}
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
-        </AnimatePresence>
-      </motion.div>
+      </div>
     </section>
   )
 }

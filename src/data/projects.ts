@@ -9,6 +9,7 @@ export type Project = {
   live?: string
   focus?: string[]
   note?: string
+  badge?: string
 }
 
 export const projects: Project[] = [
@@ -29,6 +30,7 @@ export const projects: Project[] = [
       'Administrative analytics & reports',
     ],
     note: 'Active production system built for PVDCI Coop to power cooperative cable internet services.',
+    badge: 'PVDCI Coop',
   },
   {
     index: '02',
@@ -47,6 +49,7 @@ export const projects: Project[] = [
       'Financial audit & collection reports',
     ],
     note: 'Enterprise financial management system developed for PVDCI Coop to streamline member lending operations.',
+    badge: 'PVDCI Coop',
   },
   {
     index: '03',
@@ -56,6 +59,7 @@ export const projects: Project[] = [
       'Real-time resume builder and ATS-oriented document platform. Features a split-screen live preview, dynamic section reordering, PDF compilation, shareable public URLs, and tailored formatting designed to pass applicant tracking systems.',
     technologies: ['Laravel 11', 'Vue 3', 'Inertia.js', 'Tailwind CSS', 'MySQL'],
     repo: 'https://github.com/charlesdcayetano/cheapresume',
+    badge: 'Full-Stack',
     focus: [
       'Resume creation & customization',
       'Real-time split-screen preview',
@@ -74,6 +78,7 @@ export const projects: Project[] = [
       'Full-featured academic management platform built to centralize school administration. Automates student enrollment workflows, faculty class assignments, semester scheduling, grade recording, and scholastic transcript generation.',
     technologies: ['Laravel', 'PHP', 'MySQL', 'Bootstrap', 'JavaScript'],
     repo: 'https://github.com/charlesdcayetano/csas',
+    badge: 'Full-Stack',
     focus: [
       'Student admission & enrollment',
       'Grading & academic evaluation',
@@ -91,6 +96,7 @@ export const projects: Project[] = [
       'Clinical operations and medical records platform designed to modernize healthcare workflows. Handles digital patient health records (EHR), physician appointment scheduling, triage queues, and pharmacy inventory management.',
     technologies: ['Laravel', 'PHP', 'MySQL', 'REST APIs', 'Bootstrap'],
     repo: 'https://github.com/charlesdcayetano/medicore',
+    badge: 'Full-Stack',
     focus: [
       'Electronic health records (EHR)',
       'Pharmacy inventory & dispensing',
@@ -110,6 +116,7 @@ export const projects: Project[] = [
       'High-performance reservation and scheduling management system. Provides real-time slot availability, automated booking confirmation, customer record handling, status transitions, and payment tracking with Redis caching.',
     technologies: ['Laravel 11', 'PHP', 'MySQL', 'Redis', 'Tailwind CSS'],
     repo: 'https://github.com/charlesdcayetano/bms',
+    badge: 'Full-Stack',
     focus: [
       'Real-time reservations & booking',
       'Automated calendar scheduling',
@@ -127,6 +134,7 @@ export const projects: Project[] = [
       'Interactive transit and commuter navigation utility for Western Visayas. Helps commuters check inter-city route details, estimated fare calculations, terminal locations, and scheduled departure times with Leaflet map visualization.',
     technologies: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Leaflet'],
     repo: 'https://github.com/charlesdcayetano/byahe-ta',
+    badge: 'Full-Stack',
     focus: [
       'Route discovery & mapping',
       'Dynamic fare estimation',
@@ -144,6 +152,7 @@ export const projects: Project[] = [
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel'],
     repo: 'https://github.com/charlesdcayetano/barangay-timpas-appointment',
     live: 'https://barangay-timpas-appointment.vercel.app/',
+    badge: 'Full-Stack',
     focus: [
       'Online clearance & certificate requests',
       'Automated appointment scheduling',

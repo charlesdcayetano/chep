@@ -34,6 +34,7 @@ export default function ProfileHeader() {
                 width={96}
                 height={96}
                 loading="eager"
+                fetchPriority="high"
                 className="h-full w-full object-cover transition-opacity duration-200"
               />
             </div>
@@ -54,7 +55,7 @@ export default function ProfileHeader() {
           <h1 className="font-display text-2xl sm:text-3xl lg:text-[2.6rem] font-bold tracking-[-0.03em] text-foreground leading-[1.08]">
             <MatrixText text={profile.name} />
           </h1>
-          <p className="text-base font-medium text-zinc-500 dark:text-zinc-400 tracking-tight">
+          <p className="text-base font-medium text-zinc-600 dark:text-zinc-400 tracking-tight">
             <MatrixText text={profile.title} />{' '}
             <span className="font-mono text-xs font-normal">(@{profile.handle})</span>
           </p>
@@ -63,9 +64,9 @@ export default function ProfileHeader() {
         {/* Aligned Current Role & Location Metadata Cards */}
         <div className="space-y-2 pt-1 border-y border-zinc-200/80 dark:border-zinc-800/80 py-3">
           <div className="flex items-start gap-2.5 text-xs">
-            <Briefcase size={14} className="text-zinc-400 shrink-0 mt-0.5" />
+            <Briefcase size={14} className="text-zinc-500 dark:text-zinc-400 shrink-0 mt-0.5" />
             <div className="min-w-0">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400 block">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
                 Current Role
               </span>
               <span className="font-semibold text-foreground text-xs leading-tight">
@@ -75,9 +76,9 @@ export default function ProfileHeader() {
           </div>
 
           <div className="flex items-start gap-2.5 text-xs">
-            <MapPin size={14} className="text-zinc-400 shrink-0 mt-0.5" />
+            <MapPin size={14} className="text-zinc-500 dark:text-zinc-400 shrink-0 mt-0.5" />
             <div className="min-w-0">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400 block">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
                 Location
               </span>
               <span className="font-medium text-foreground text-xs">
@@ -97,7 +98,7 @@ export default function ProfileHeader() {
               rel="noopener noreferrer"
               className="skill-inner-shadow inline-flex items-center self-end rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white transition-transform hover:scale-105"
             >
-              <span className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center text-[#FF2D20]">
+              <span aria-hidden="true" className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center text-[#FF2D20]">
                 <SiLaravel className="size-full" />
               </span>
               <span className="ml-1 text-xs sm:text-sm font-bold">Laravel</span>
@@ -109,7 +110,7 @@ export default function ProfileHeader() {
               rel="noopener noreferrer"
               className="skill-inner-shadow inline-flex items-center self-end rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white transition-transform hover:scale-105"
             >
-              <span className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center text-[#61DAFB]">
+              <span aria-hidden="true" className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center text-[#61DAFB]">
                 <SiReact className="size-full" />
               </span>
               <span className="ml-1 text-xs sm:text-sm font-bold">React</span>
@@ -121,7 +122,7 @@ export default function ProfileHeader() {
               rel="noopener noreferrer"
               className="skill-inner-shadow inline-flex items-center self-end rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white transition-transform hover:scale-105"
             >
-              <span className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center">
+              <span aria-hidden="true" className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center">
                 <SiNextdotjs className="size-full" />
               </span>
               <span className="ml-1 text-xs sm:text-sm font-bold">Next.js</span>
@@ -133,7 +134,7 @@ export default function ProfileHeader() {
               rel="noopener noreferrer"
               className="skill-inner-shadow inline-flex items-center self-end rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white transition-transform hover:scale-105"
             >
-              <span className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center text-[#3178C6]">
+              <span aria-hidden="true" className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center text-[#3178C6]">
                 <SiTypescript className="size-full" />
               </span>
               <span className="ml-1 text-xs sm:text-sm font-bold">TypeScript</span>
@@ -145,7 +146,7 @@ export default function ProfileHeader() {
               rel="noopener noreferrer"
               className="skill-inner-shadow inline-flex items-center self-end rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white transition-transform hover:scale-105"
             >
-              <span className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center text-[#4479A1]">
+              <span aria-hidden="true" className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center text-[#4479A1]">
                 <SiMysql className="size-full" />
               </span>
               <span className="ml-1 text-xs sm:text-sm font-bold">MySQL</span>
@@ -157,7 +158,7 @@ export default function ProfileHeader() {
               rel="noopener noreferrer"
               className="skill-inner-shadow inline-flex items-center self-end rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-0.5 text-xs sm:text-sm font-bold text-foreground dark:border-white/30 dark:bg-white/15 dark:text-white transition-transform hover:scale-105"
             >
-              <span className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center text-[#4169E1]">
+              <span aria-hidden="true" className="size-3.5 sm:size-4 flex-shrink-0 flex items-center justify-center text-[#4169E1]">
                 <SiPostgresql className="size-full" />
               </span>
               <span className="ml-1 text-xs sm:text-sm font-bold">PostgreSQL</span>
@@ -188,7 +189,7 @@ export default function ProfileHeader() {
             aria-label="GitHub Profile"
             className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-foreground transition-all duration-150"
           >
-            <FaGithub size={14} />
+            <FaGithub aria-hidden="true" size={14} />
           </a>
           <a
             href={profile.linkedin}
@@ -198,7 +199,7 @@ export default function ProfileHeader() {
             aria-label="LinkedIn Profile"
             className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-foreground transition-all duration-150"
           >
-            <FaLinkedin size={14} />
+            <FaLinkedin aria-hidden="true" size={14} />
           </a>
           <a
             href={profile.facebook}
@@ -208,7 +209,7 @@ export default function ProfileHeader() {
             aria-label="Facebook Profile"
             className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-foreground transition-all duration-150"
           >
-            <FaFacebook size={14} />
+            <FaFacebook aria-hidden="true" size={14} />
           </a>
           <a
             href={profile.x}
@@ -218,7 +219,7 @@ export default function ProfileHeader() {
             aria-label="X (Twitter) Profile"
             className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-foreground transition-all duration-150"
           >
-            <FaXTwitter size={14} />
+            <FaXTwitter aria-hidden="true" size={14} />
           </a>
         </div>
       </div>
