@@ -11,7 +11,6 @@ import {
   SiVuedotjs,
   SiInertia,
   SiPostgresql,
-  SiRedis,
   SiBootstrap,
   SiGit,
   SiGithub,

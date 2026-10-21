@@ -1,4 +1,4 @@
-import { Award, ArrowUpRight, ShieldCheck } from 'lucide-react'
+import { ArrowUpRight, ShieldCheck } from 'lucide-react'
 import { certifications } from '../data/certifications'
 import { useUi } from '../i18n/useUi'
 

@@ -4,8 +4,6 @@ import {
   ExternalLink,
   Github,
   ArrowUpRight,
-  Layers,
-  CheckCircle2,
 } from 'lucide-react'
 import {
   SiLaravel,

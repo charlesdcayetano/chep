@@ -56,7 +56,7 @@ function PortfolioContent() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background transition-colors duration-200">
+    <div id="top" className="min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background transition-colors duration-200">
       {/* Morphing Floating Pill Navbar */}
       <Nav onOpenSearch={() => setIsSearchOpen(true)} />
 

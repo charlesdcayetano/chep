@@ -24,7 +24,7 @@ import {
   SiGithubcopilot,
   SiGooglegemini,
 } from 'react-icons/si'
-import { Network, Lock, Database, Code2, Layers, Cpu, Bot } from 'lucide-react'
+import { Network, Lock, Database, Code2, Cpu, Bot } from 'lucide-react'
 import { skillGroups } from '../data/stack'
 import { useUi } from '../i18n/useUi'
 import { animateBadgeHover, animateBadgeLeave } from '../utils/animeEffects'
