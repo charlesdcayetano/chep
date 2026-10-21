@@ -15,7 +15,7 @@ export default function LanguageToggle() {
     <div
       role="group"
       aria-label={ui.languageLabel}
-      className="inline-flex h-9 items-center gap-0.5 rounded-md border rule p-0.5"
+      className="inline-flex h-8 sm:h-8.5 items-center gap-0.5 rounded-md border border-zinc-200 dark:border-zinc-800 bg-background dark:bg-zinc-900/60 p-0.5 btn-inner-shadow"
     >
       {options.map((opt) => (
         <button
@@ -24,10 +24,10 @@ export default function LanguageToggle() {
           aria-label={opt.fullLabel}
           aria-pressed={language === opt.value}
           onClick={() => setLanguage(opt.value)}
-          className={`h-full rounded px-2.5 font-mono text-[11px] font-semibold transition-colors duration-150 ${
+          className={`h-full rounded px-2 font-mono text-xs font-semibold transition-all duration-150 ${
             language === opt.value
-              ? 'bg-[#171717] text-[#FAFAFA] dark:bg-[#F5F5F5] dark:text-[#111111]'
-              : 't-muted hover:text-[#171717] dark:hover:text-[#F5F5F5]'
+              ? 'bg-foreground text-background shadow-xs'
+              : 'text-zinc-500 hover:text-foreground dark:text-zinc-400 dark:hover:text-white'
           }`}
         >
           {opt.label}

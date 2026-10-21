@@ -1,39 +1,62 @@
-import { ArrowUpRight } from 'lucide-react'
+import { Award, ArrowUpRight, ShieldCheck } from 'lucide-react'
 import { certifications } from '../data/certifications'
-import { CollapsibleSection } from './Section'
 import { useUi } from '../i18n/useUi'
 
 export default function Certifications() {
   const { ui, t } = useUi()
 
   return (
-    <CollapsibleSection id="certifications" title={ui.certifications}>
-      <ul className="space-y-4">
+    <section id="certifications" className="scroll-mt-28 space-y-4">
+      <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+        <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground font-display">
+          {ui.certifications}
+        </h2>
+        <span className="text-xs font-mono text-zinc-400">Credentials</span>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
         {certifications.map((cert) => (
-          <li
+          <div
             key={cert.name}
-            className="flex flex-col gap-1 text-sm sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
+            className="group flex flex-col justify-between rounded-xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 p-4 transition-all duration-200 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm"
           >
-            <div className="min-w-0 [overflow-wrap:anywhere]">
-              <span className="font-medium">{t(cert.name)}</span>
-              <span className="t-muted"> — {t(cert.issuer)}</span>
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between gap-2 text-xs font-mono text-zinc-400">
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck size={14} className="text-emerald-500 shrink-0" />
+                  <span>{cert.date || cert.year}</span>
+                </span>
+                {cert.credentialId && (
+                  <span className="text-[10px] font-mono bg-zinc-200/70 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-600 dark:text-zinc-300">
+                    ID: {cert.credentialId}
+                  </span>
+                )}
+              </div>
+
+              <h3 className="font-semibold text-foreground text-sm leading-snug group-hover:text-foreground">
+                {t(cert.name)}
+              </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                {t(cert.issuer)}
+              </p>
             </div>
-            <div className="t-faint flex shrink-0 items-center gap-3 font-mono text-xs">
-              <span>{cert.year}</span>
-              {cert.url && (
+
+            {(cert.fileUrl || cert.url) && (
+              <div className="mt-3 pt-2.5 border-t border-zinc-200/60 dark:border-zinc-800/80 flex justify-end">
                 <a
-                  href={cert.url}
+                  href={cert.fileUrl || cert.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-arrow min-h-[36px] !font-sans"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground hover:underline"
                 >
-                  {ui.verify} <ArrowUpRight size={10} aria-hidden="true" />
+                  <span>View Certificate</span>
+                  <ArrowUpRight size={12} className="text-muted-foreground" />
                 </a>
-              )}
-            </div>
-          </li>
+              </div>
+            )}
+          </div>
         ))}
-      </ul>
-    </CollapsibleSection>
+      </div>
+    </section>
   )
 }

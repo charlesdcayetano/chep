@@ -8,8 +8,6 @@ const DARK_QUERY = '(prefers-color-scheme: dark)'
 export default function ThemeToggle() {
   const { ui } = useUi()
   const [theme, setThemeState] = useState<Theme>('system')
-  // Tracks the OS preference so a stored 'system' value can be resolved to
-  // what the page is actually showing (light or dark).
   const [systemDark, setSystemDark] = useState(false)
 
   useEffect(() => {
@@ -40,9 +38,8 @@ export default function ThemeToggle() {
       onClick={toggle}
       aria-label={label}
       title={label}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-md border rule t-muted transition-colors duration-150 hover:text-[#171717] dark:hover:text-[#F5F5F5]"
+      className="inline-flex h-8 sm:h-8.5 w-8 sm:w-8.5 items-center justify-center rounded-md border border-zinc-200 dark:border-zinc-800 bg-background dark:bg-zinc-900/60 text-zinc-600 dark:text-zinc-300 transition-colors duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-foreground active:scale-95 btn-inner-shadow"
     >
-      {/* Shows the icon of the mode you will switch TO */}
       {isDark ? <Sun size={15} aria-hidden="true" /> : <Moon size={15} aria-hidden="true" />}
     </button>
   )

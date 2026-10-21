@@ -1,3 +1,4 @@
+import { ArrowUp } from 'lucide-react'
 import { profile } from '../data/profile'
 import { useUi } from '../i18n/useUi'
 
@@ -5,29 +6,62 @@ export default function Footer() {
   const { ui } = useUi()
   const year = new Date().getFullYear()
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
-    <footer className="t-muted mt-2 border-t py-8 text-sm rule">
-      <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
-        <div className="min-w-0">
-          <p className="font-medium text-[#171717] dark:text-[#F5F5F5]">{profile.name}</p>
-          <p>{profile.title}</p>
-          <p className="t-faint mt-1 font-mono text-xs">{ui.footerLocation}</p>
+    <footer className="mt-20 border-t border-zinc-200 dark:border-zinc-800 py-10 text-xs text-zinc-500">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <p className="font-semibold text-foreground text-sm font-display">
+            {profile.name}
+          </p>
+          <p className="text-zinc-500">{profile.title}</p>
+          <p className="font-mono text-[11px] text-zinc-400">
+            {ui.footerLocation}
+          </p>
         </div>
-        <nav aria-label={ui.footerLinks} className="flex flex-wrap gap-x-5 gap-y-1">
-          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[36px] items-center hover:text-[#B45309] dark:hover:text-[#F59E0B]">
+
+        <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
+          <a
+            href={profile.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
             GitHub
           </a>
-          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[36px] items-center hover:text-[#B45309] dark:hover:text-[#F59E0B]">
-            {ui.linkedin}
+          <a
+            href={profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            LinkedIn
           </a>
-          <a href={`mailto:${profile.email}`} className="inline-flex min-h-[36px] items-center hover:text-[#B45309] dark:hover:text-[#F59E0B]">
-            {ui.email}
+          <a
+            href={`mailto:${profile.email}`}
+            className="hover:text-foreground transition-colors"
+          >
+            Email
           </a>
-        </nav>
+          <button
+            type="button"
+            onClick={scrollToTop}
+            aria-label="Back to top"
+            className="inline-flex items-center gap-1 rounded-full border border-zinc-200 dark:border-zinc-800 px-3 py-1 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-foreground transition-all"
+          >
+            <span>Top</span>
+            <ArrowUp size={12} />
+          </button>
+        </div>
       </div>
-      <p className="t-faint mt-6 font-mono text-xs">
-        © {year} {profile.name}
-      </p>
+
+      <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-zinc-400 font-mono gap-2">
+        <p>© {year} {profile.name}. All rights reserved.</p>
+        <p>Built with React &bull; TypeScript &bull; Tailwind CSS</p>
+      </div>
     </footer>
   )
 }

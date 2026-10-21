@@ -1,4 +1,3 @@
-import type { JSX } from 'react'
 import {
   SiReact,
   SiVuedotjs,
@@ -25,70 +24,96 @@ import {
   SiGithubcopilot,
   SiGooglegemini,
 } from 'react-icons/si'
-import { Network, Lock, Database, Code2, Palette, Bot } from 'lucide-react'
+import { Network, Lock, Database, Code2, Layers, Cpu, Bot } from 'lucide-react'
 import { skillGroups } from '../data/stack'
-import { Section } from './Section'
 import { useUi } from '../i18n/useUi'
+import { animateBadgeHover, animateBadgeLeave } from '../utils/animeEffects'
 
-// Maps a skill label to its icon. Skills without a well-known brand mark
-// fall back to a neutral lucide icon rather than an inaccurate brand logo.
-const iconMap: Record<string, JSX.Element> = {
-  React: <SiReact />,
-  'Vue.js 3': <SiVuedotjs />,
-  'Inertia.js': <SiInertia />,
-  TypeScript: <SiTypescript />,
-  JavaScript: <SiJavascript />,
-  'Tailwind CSS': <SiTailwindcss />,
-  HTML5: <SiHtml5 />,
-  CSS3: <SiCss />,
-  Bootstrap: <SiBootstrap />,
-  Laravel: <SiLaravel />,
-  PHP: <SiPhp />,
-  MySQL: <SiMysql />,
-  'REST APIs': <Network />,
-  Authentication: <Lock />,
-  'CRUD Architecture': <Database />,
-  Git: <SiGit />,
+const iconMap: Record<string, React.ReactNode> = {
+  React: <SiReact className="text-[#61DAFB]" />,
+  'Vue.js 3': <SiVuedotjs className="text-[#4FC08D]" />,
+  'Inertia.js': <SiInertia className="text-[#9553E9]" />,
+  TypeScript: <SiTypescript className="text-[#3178C6]" />,
+  JavaScript: <SiJavascript className="text-[#F7DF1E]" />,
+  'Tailwind CSS': <SiTailwindcss className="text-[#06B6D4]" />,
+  HTML5: <SiHtml5 className="text-[#E34F26]" />,
+  CSS3: <SiCss className="text-[#1572B6]" />,
+  Bootstrap: <SiBootstrap className="text-[#7952B3]" />,
+  Laravel: <SiLaravel className="text-[#FF2D20]" />,
+  PHP: <SiPhp className="text-[#777BB4]" />,
+  MySQL: <SiMysql className="text-[#4479A1]" />,
+  'REST APIs': <Network className="text-zinc-500" />,
+  Authentication: <Lock className="text-zinc-500" />,
+  'CRUD Architecture': <Database className="text-zinc-500" />,
+  Git: <SiGit className="text-[#F05032]" />,
   GitHub: <SiGithub />,
-  Vite: <SiVite />,
-  'VS Code': <Code2 />,
-  Figma: <SiFigma />,
-  Canva: <Palette />,
-  n8n: <SiN8N />,
+  Vite: <SiVite className="text-[#646CFF]" />,
+  'VS Code': <Code2 className="text-[#007ACC]" />,
+  Figma: <SiFigma className="text-[#F24E1E]" />,
+  n8n: <SiN8N className="text-[#EA4B71]" />,
   Vercel: <SiVercel />,
-  Netlify: <SiNetlify />,
-  Namecheap: <SiNamecheap />,
-  'Python 3': <SiPython />,
-  'Claude Code': <SiClaudecode />,
-  'GitHub Copilot': <SiGithubcopilot />,
+  Netlify: <SiNetlify className="text-[#00C7B7]" />,
+  Namecheap: <SiNamecheap className="text-[#DE3723]" />,
+  'Python 3': <SiPython className="text-[#3776AB]" />,
+  'Claude Code': <SiClaudecode className="text-[#D97706]" />,
+  'GitHub Copilot': <SiGithubcopilot className="text-[#24292E] dark:text-white" />,
   ChatGPT: <Bot />,
-  Gemini: <SiGooglegemini />,
+  Gemini: <SiGooglegemini className="text-[#4285F4]" />,
 }
 
 export default function Skills() {
   const { ui } = useUi()
 
   return (
-    <Section id="skills" title={ui.skills}>
-      <div className="space-y-5">
+    <section id="skills" className="scroll-mt-28 space-y-6">
+      {/* Section Header */}
+      <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4">
+        <div>
+          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground font-display">
+            {ui.skills}
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Full-stack technologies, frameworks, and developer workflows
+          </p>
+        </div>
+        <span className="text-xs font-mono text-zinc-400">Core Stack</span>
+      </div>
+
+      {/* Categorized Skills Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {skillGroups.map((group) => (
-          <div key={group.label} className="grid grid-cols-1 gap-2 sm:grid-cols-[130px_minmax(0,1fr)] sm:gap-6">
-            <h3 className="t-faint pt-1.5 text-sm font-medium">
-              {ui.skillGroups[group.label] ?? group.label}
-            </h3>
-            <ul className="flex flex-wrap gap-2" aria-label={ui.skillGroups[group.label] ?? group.label}>
+          <div
+            key={group.label}
+            className="rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 p-4 sm:p-5 space-y-3"
+          >
+            <div className="flex items-center justify-between border-b border-zinc-200/60 dark:border-zinc-800 pb-2">
+              <h3 className="font-display text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500" />
+                {ui.skillGroups[group.label] ?? group.label}
+              </h3>
+              <span className="font-mono text-[10px] text-zinc-400">
+                {group.skills.length} tools
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-2 pt-1">
               {group.skills.map((skill) => (
-                <li key={skill} className="tag">
-                  <span className="text-[14px] leading-none" aria-hidden="true">
-                    {iconMap[skill] ?? <Code2 size={13} />}
+                <div
+                  key={skill}
+                  onMouseEnter={(e) => animateBadgeHover(e.currentTarget)}
+                  onMouseLeave={(e) => animateBadgeLeave(e.currentTarget)}
+                  className="skill-inner-shadow cursor-default inline-flex items-center gap-1.5 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900/80 px-2.5 py-1 text-xs font-medium text-foreground hover:border-zinc-900 dark:hover:border-zinc-100 transition-colors"
+                >
+                  <span className="text-sm shrink-0">
+                    {iconMap[skill] ?? <Cpu size={13} />}
                   </span>
-                  {skill}
-                </li>
+                  <span>{skill}</span>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         ))}
       </div>
-    </Section>
+    </section>
   )
 }

@@ -12,6 +12,9 @@
     "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
+    "@types/animejs": "^3.1.13",
+    "animejs": "^3.2.2",
+    "framer-motion": "^14.4.0",
     "lucide-react": "^0.400.0",
     "page-mascot": "^0.1.0",
     "react": "^18.3.1",

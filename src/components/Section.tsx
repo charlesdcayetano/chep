@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { ChevronDown } from 'lucide-react'
 
-const base = 'scroll-mt-20 py-8 border-t rule'
+const base = 'scroll-mt-24 py-8 border-t rule'
 
 /** A section that is always open. */
 export function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {

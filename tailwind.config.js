@@ -5,14 +5,30 @@ export default {
   theme: {
     extend: {
       colors: {
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        card: {
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
+        },
+        muted: {
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)',
+        },
+        border: 'var(--border)',
         accent: {
-          light: '#B45309',
-          dark: '#F59E0B',
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
+        },
+        zinc: {
+          850: '#1a1a1e',
+          950: '#09090b',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['"IBM Plex Mono"', '"JetBrains Mono"', 'monospace'],
+        display: ['"Hanken Grotesk"', '"Space Grotesk"', 'sans-serif'],
+        sans: ['Inter', '"Hanken Grotesk"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       maxWidth: {
         content: '760px',
