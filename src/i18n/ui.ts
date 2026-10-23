@@ -60,7 +60,7 @@ export const uiStrings: Record<Language, UiStrings> = {
     currently: 'Currently',
     aboutCurrentLabel: 'Right now',
     aboutCurrent:
-      'I work as an IT Assistant at PVDCI Coop, developing core platforms like LinkCoop (Cable Internet & Billing) and Hulamverde (Loan Management System) while supporting day-to-day IT operations, hardware, and networks.',
+      'I work as an IT Assistant at PVDCI Coop, developing core platforms like LinkCoop (Cable Internet & Billing), Hulamverde (Loan Management System), and PVDCI IP Tracker (Subscriber & Modem NOC) while supporting day-to-day IT operations, hardware, and networks.',
     skills: 'Skills',
     skillGroups: {},
     selectedWork: 'Selected Work',
@@ -95,7 +95,7 @@ export const uiStrings: Record<Language, UiStrings> = {
     currently: 'Kasalukuyan',
     aboutCurrentLabel: 'Sa ngayon',
     aboutCurrent:
-      'Nagtatrabaho ako bilang IT Assistant sa PVDCI Coop, kung saan gumagawa ako ng mga platform tulad ng LinkCoop (Cable Internet & Billing) at Hulamverde (Loan Management System) kasabay ng pagsuporta sa pang-araw-araw na IT operations, hardware, at network.',
+      'Nagtatrabaho ako bilang IT Assistant sa PVDCI Coop, kung saan gumagawa ako ng mga platform tulad ng LinkCoop (Cable Internet & Billing), Hulamverde (Loan Management System), at PVDCI IP Tracker (Subscriber & Modem NOC) kasabay ng pagsuporta sa pang-araw-araw na IT operations, hardware, at network.',
     skills: 'Mga Kasanayan',
     skillGroups: {
       Tools: 'Mga Tool',

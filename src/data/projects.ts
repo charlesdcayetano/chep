@@ -53,6 +53,25 @@ export const projects: Project[] = [
   },
   {
     index: '03',
+    name: 'PVDCI IP Tracker',
+    fullName: 'Subscriber & Modem NOC IP Tracking System',
+    category: 'NOC & Network Operations',
+    description:
+      'Network Operations Center (NOC) and IP tracking platform engineered for PVDCI Coop. Centralizes subscriber IP address allocations, modem and ONT hardware assignments, subnet pool monitoring, and real-time connectivity status to streamline network operations and technical diagnostics.',
+    technologies: ['Laravel', 'React', 'MySQL', 'Tailwind CSS', 'PHP'],
+    focus: [
+      'Subscriber & modem IP mapping',
+      'NOC connectivity diagnostics & monitoring',
+      'Subnet pool allocation & conflict prevention',
+      'Modem MAC address & hardware inventory',
+      'Node & service area IP tracking',
+      'NOC incident logs & diagnostic reports',
+    ],
+    note: 'Internal Network Operations Center (NOC) system built for PVDCI Coop to monitor modem connectivity and manage subscriber IP allocations.',
+    badge: 'PVDCI Coop',
+  },
+  {
+    index: '04',
     name: 'Cheap Resume',
     category: 'SaaS Application',
     description:
@@ -70,7 +89,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    index: '04',
+    index: '05',
     name: 'CSAS',
     fullName: 'Chep Smart Academic System',
     category: 'Academic Management',
@@ -89,7 +108,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    index: '05',
+    index: '06',
     name: 'MediCore',
     category: 'Healthcare Management',
     description:
@@ -108,7 +127,7 @@ export const projects: Project[] = [
     note: 'A healthcare workflow system built as a development project, not a currently deployed hospital system.',
   },
   {
-    index: '06',
+    index: '07',
     name: 'CBMS',
     fullName: 'Booking Management System',
     category: 'Booking Platform',
@@ -127,7 +146,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    index: '07',
+    index: '08',
     name: 'Byahe Ta',
     category: 'Transit & Travel',
     description:
@@ -143,7 +162,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    index: '08',
+    index: '09',
     name: 'Barangay TAS',
     fullName: 'Barangay Timpas Appointment System',
     category: 'Public Service / GovTech',

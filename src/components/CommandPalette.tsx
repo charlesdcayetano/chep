@@ -174,7 +174,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
     {
       id: 'exp-current',
       title: `${typeof currentJob.role === 'string' ? currentJob.role : currentJob.role.en} @ ${currentJob.org}`,
-      subtitle: 'Lead developer for LinkCoop & Hulamverde systems',
+      subtitle: 'Lead developer for LinkCoop, Hulamverde & IP Tracker systems',
       category: 'Experience',
       icon: <Briefcase size={16} />,
       onSelect: () => scrollToSection('experience'),

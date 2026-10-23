@@ -66,7 +66,7 @@ export default function About() {
           </h3>
 
           <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
-            BS Information Technology graduate and Full-Stack Developer based in Roxas City, Capiz, Philippines. I build practical, production-ready enterprise applications and digital business systems—most notably LinkCoop (cable internet billing and subscriber management) and Hulamverde (cooperative lending and ledger accounting) for PVDCI Coop. Passionate about crafting dependable full-stack architectures, automated billing engines, and robust web solutions that solve real-world problems.
+            BS Information Technology graduate and Full-Stack Developer based in Roxas City, Capiz, Philippines. I build practical, production-ready enterprise applications and digital business systems—most notably LinkCoop (cable internet billing and subscriber management), Hulamverde (cooperative lending and ledger accounting), and PVDCI IP Tracker (subscriber & modem NOC tracking) for PVDCI Coop. Passionate about crafting dependable full-stack architectures, automated billing engines, and robust web solutions that solve real-world problems.
           </p>
 
           <div className="flex flex-col gap-3 pt-1">

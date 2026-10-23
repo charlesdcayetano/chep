@@ -17,11 +17,11 @@ export const currentJob: {
   period: { en: 'Present', fil: 'Kasalukuyan' },
   description: [
     {
-      en: 'Lead developer for core cooperative platforms: LinkCoop (Cable Internet & Billing Management System) and Hulamverde (Loan Management & Billing System).',
-      fil: 'Pangunahing developer para sa mga sistema ng kooperatiba: LinkCoop (Cable Internet & Billing Management System) at Hulamverde (Loan Management & Billing System).',
+      en: 'Lead developer for core cooperative platforms: LinkCoop (Cable Internet & Billing Management System), Hulamverde (Loan Management & Billing System), and PVDCI IP Tracker (Subscriber & Modem NOC).',
+      fil: 'Pangunahing developer para sa mga sistema ng kooperatiba: LinkCoop (Cable Internet & Billing Management System), Hulamverde (Loan Management & Billing System), at PVDCI IP Tracker (Subscriber & Modem NOC).',
     },
     {
-      en: 'Designed and deployed automated workflows for subscriber billing, loan amortization schedules, interest computation, and member payment records.',
+      en: 'Designed and create automated workflows for subscriber billing, loan amortization schedules, interest computation, and member payment records.',
       fil: 'Nagdisenyo at nagpatupad ng mga automated workflow para sa subscriber billing, loan amortization schedules, interest computation, at records ng pagbabayad ng miyembro.',
     },
     {

@@ -53,7 +53,10 @@ export default function Projects() {
       return (
         p.category.includes('Billing') ||
         p.category.includes('Lending') ||
-        p.category.includes('Booking')
+        p.category.includes('Booking') ||
+        p.category.includes('NOC') ||
+        p.category.includes('Network') ||
+        p.category.includes('Operations')
       )
     }
     if (filter === 'SaaS & Web') {
@@ -83,7 +86,9 @@ export default function Projects() {
             Production cooperative portals, business systems, and web utilities
           </p>
         </div>
-        <span className="text-xs font-mono text-zinc-400 shrink-0">0{projects.length} Projects</span>
+        <span className="text-xs font-mono text-zinc-400 shrink-0">
+          {projects.length < 10 ? `0${projects.length}` : projects.length} Projects
+        </span>
       </div>
 
       {/* Filter Pills: Single-row horizontal container */}
@@ -188,7 +193,7 @@ export default function Projects() {
               {/* Action Links */}
               <div className="flex items-center justify-between text-xs pt-1">
                 <span className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono">
-                  {project.badge || (project.name === 'LinkCoop' || project.name === 'Hulamverde' ? 'PVDCI Coop' : 'Full-Stack')}
+                  {project.badge || (project.name === 'LinkCoop' || project.name === 'Hulamverde' || project.name === 'PVDCI IP Tracker' ? 'PVDCI Coop' : 'Full-Stack')}
                 </span>
 
                 <div className="flex items-center gap-3">
