@@ -1,113 +1,137 @@
-import { useState } from 'react'
 import {
-  SiLaravel,
-  SiPhp,
-  SiMysql,
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiJavascript,
-  SiTailwindcss,
-  SiVuedotjs,
-  SiInertia,
-  SiPostgresql,
-  SiBootstrap,
-  SiGit,
-  SiGithub,
-  SiVercel,
-} from 'react-icons/si'
+  MapPin,
+  GraduationCap,
+  ShieldCheck,
+  Briefcase,
+  Terminal,
+  HeartHandshake,
+  Check,
+  ArrowRight,
+} from 'lucide-react'
 import { profile } from '../data/profile'
-import MatrixText from './MatrixText'
-
-// Project-specific tech stack matching Charles's portfolio projects
-const projectTechIcons = [
-  { name: 'Laravel', icon: SiLaravel, color: '#FF2D20' },
-  { name: 'PHP', icon: SiPhp, color: '#777BB4' },
-  { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
-  { name: 'React', icon: SiReact, color: '#61DAFB' },
-  { name: 'Next.js', icon: SiNextdotjs, color: 'currentColor' },
-  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
-  { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
-  { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#38BDF8' },
-  { name: 'Vue.js', icon: SiVuedotjs, color: '#4FC08D' },
-  { name: 'Inertia.js', icon: SiInertia, color: '#9553E9' },
-  { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
-  { name: 'Bootstrap', icon: SiBootstrap, color: '#7952B3' },
-  { name: 'Git', icon: SiGit, color: '#F05032' },
-  { name: 'GitHub', icon: SiGithub, color: 'currentColor' },
-  { name: 'Vercel', icon: SiVercel, color: 'currentColor' },
-]
+import { currentJob } from '../data/currentJob'
+import { useUi } from '../i18n/useUi'
 
 export default function About() {
-  const [activeTooltip, setActiveTooltip] = useState<string | null>(null)
-
+  const { t } = useUi()
   return (
-    <section id="about" className="scroll-mt-28 border-border/50 border-b py-12 last:border-0">
-      <div className="mb-6">
-        <h2 className="text-foreground text-xl font-bold tracking-tight">About</h2>
+    <section id="about" className="scroll-mt-28 space-y-6">
+      {/* Section Header */}
+      <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4">
+        <div>
+          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground font-display">
+            About
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Background, engineering approach, and what I care about building
+          </p>
+        </div>
+        <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400">Profile</span>
       </div>
 
-      <div className="mt-8 flex flex-col gap-6">
-        {/* Charles's Portrait Card */}
-        <div className="relative group overflow-hidden rounded-xl w-fit">
-          <img
-            alt={profile.name}
-            loading="lazy"
-            width={240}
-            height={240}
-            src="/images/Portfolio.webp"
-            className="border-secondary size-48 sm:size-60 rounded-xl border-2 object-cover shadow-lg transition-transform duration-300 group-hover:scale-[1.02] bg-zinc-100 dark:bg-zinc-900"
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <h3 className="text-2xl font-bold text-foreground">
-            <MatrixText text={profile.name} />
-          </h3>
-
-          <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
-            BS Information Technology graduate and Full-Stack Developer based in Roxas City, Capiz, Philippines. I build practical, production-ready enterprise applications and digital business systems—most notably LinkCoop (cable internet billing and subscriber management), Hulamverde (cooperative lending and ledger accounting), and PVDCI IP Tracker (subscriber & modem NOC tracking) for PVDCI Coop. Passionate about crafting dependable full-stack architectures, automated billing engines, and robust web solutions that solve real-world problems.
+      {/* Main Narrative Card */}
+      <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60 p-6 sm:p-8 space-y-6 shadow-xs">
+        {/* Story Prose */}
+        <div className="space-y-4 text-sm sm:text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-300">
+          <p>
+            I&apos;m a software developer based in <strong className="text-foreground font-semibold">Roxas City, Capiz</strong>, currently working as an IT Assistant at <strong className="text-foreground font-semibold">PVDCI Coop</strong>. My day-to-day involves designing, maintaining, and supporting internal systems that real staff rely on—from monthly internet subscriber billing in <a href="#projects" className="text-foreground font-medium underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-foreground">LinkCoop</a> to member loan computations in <a href="#projects" className="text-foreground font-medium underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-foreground">Hulamverde</a>, and modem IP network management.
           </p>
 
-          <div className="flex flex-col gap-3 pt-1">
-            <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
-              Project Technologies & Tools
-            </span>
-            <div className="flex flex-wrap gap-3.5 items-center">
-              {projectTechIcons.map((tech) => {
-                const IconComponent = tech.icon
-                const isHovered = activeTooltip === tech.name
+          <p>
+            Coming from an IT background rather than just pure theoretical software, I spent years working closely with computers, local networks, and hardware. That practical experience shaped how I write code: I prioritize <span className="text-foreground font-medium">clean relational database schemas</span>, <span className="text-foreground font-medium">predictable business logic</span>, and <span className="text-foreground font-medium">interfaces that non-technical users can navigate without confusion</span>.
+          </p>
 
-                return (
-                  <div
-                    key={tech.name}
-                    className="relative"
-                    onMouseEnter={() => setActiveTooltip(tech.name)}
-                    onMouseLeave={() => setActiveTooltip(null)}
-                  >
-                    <div
-                      role="img"
-                      aria-label={tech.name}
-                      title={tech.name}
-                      className="size-6 transition-transform hover:scale-125 hover:cursor-pointer flex items-center justify-center text-muted-foreground hover:text-foreground"
-                    >
-                      <IconComponent
-                        aria-hidden="true"
-                        className="size-5 sm:size-6 transition-colors"
-                        style={{ color: tech.color !== 'currentColor' ? tech.color : undefined }}
-                      />
-                    </div>
+          <p>
+            My main stack centers around <strong className="text-foreground font-semibold">Laravel, PHP, and MySQL</strong> on the backend, paired with <strong className="text-foreground font-semibold">React, Vue 3, Inertia.js, and Tailwind CSS</strong> on the client side. I enjoy taking complex, paper-heavy operations and turning them into streamlined, automated web applications that just work.
+          </p>
+        </div>
 
-                    {/* Interactive Tooltip matching kroszborg */}
-                    {isHovered && (
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-zinc-900 dark:bg-zinc-800 text-white text-[11px] font-medium rounded shadow-lg pointer-events-none whitespace-nowrap z-30 border border-zinc-700/50 animate-in fade-in zoom-in-95 duration-150">
-                        {tech.name}
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-900 dark:border-t-zinc-800" />
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
+        {/* Clean At-a-Glance Grid */}
+        <div className="pt-6 border-t border-zinc-100 dark:border-zinc-800/80 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div className="flex items-start gap-3 p-3.5 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-900/40">
+            <Briefcase size={16} className="text-zinc-500 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
+                Current Work
+              </span>
+              <span className="font-medium text-foreground">
+                {t(currentJob.role)} at {currentJob.org}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3 p-3.5 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-900/40">
+            <ShieldCheck size={16} className="text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
+                Certification
+              </span>
+              <span className="font-medium text-foreground">
+                DICT ICT Specialist (Civil Service CSC Eligible)
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3 p-3.5 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-900/40">
+            <GraduationCap size={16} className="text-zinc-500 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
+                Education
+              </span>
+              <span className="font-medium text-foreground">
+                BS Information Technology, College of Information Tech
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3 p-3.5 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-900/40">
+            <MapPin size={16} className="text-zinc-500 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
+                Location & Status
+              </span>
+              <span className="font-medium text-foreground">
+                Roxas City, Philippines • Open to Roles
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Engineering Principles (Natural, non-corporate) */}
+        <div className="pt-6 border-t border-zinc-100 dark:border-zinc-800/80 space-y-3">
+          <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 font-semibold">
+            How I Approach Projects
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div className="p-3.5 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/40 dark:bg-zinc-900/20 space-y-1">
+              <span className="font-semibold text-foreground flex items-center gap-1.5">
+                <Check size={13} className="text-emerald-500" />
+                <span>Simplicity First</span>
+              </span>
+              <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed text-[11px]">
+                I favor clean, readable code and normalized schemas over unnecessary architectural complexity.
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/40 dark:bg-zinc-900/20 space-y-1">
+              <span className="font-semibold text-foreground flex items-center gap-1.5">
+                <Check size={13} className="text-emerald-500" />
+                <span>Built for Real Users</span>
+              </span>
+              <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed text-[11px]">
+                Clear validation, sensible defaults, and error prevention so staff can do their work without friction.
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/40 dark:bg-zinc-900/20 space-y-1">
+              <span className="font-semibold text-foreground flex items-center gap-1.5">
+                <Check size={13} className="text-emerald-500" />
+                <span>Full Accountability</span>
+              </span>
+              <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed text-[11px]">
+                From database migrations to UI polish and server deployments, I care about the end-to-end outcome.
+              </p>
             </div>
           </div>
         </div>

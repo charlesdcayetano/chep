@@ -3,6 +3,8 @@ import {
   ExternalLink,
   Github,
   ArrowUpRight,
+  Eye,
+  Sparkles,
 } from 'lucide-react'
 import {
   SiLaravel,
@@ -22,6 +24,7 @@ import {
 } from 'react-icons/si'
 import { projects, type Project } from '../data/projects'
 import { useUi } from '../i18n/useUi'
+import ProjectModal from './ProjectModal'
 
 const techIconMap: Record<string, React.ReactNode> = {
   Laravel: <SiLaravel className="text-[#FF2D20]" />,
@@ -46,6 +49,13 @@ type CategoryFilter = 'All' | 'Systems & Billing' | 'SaaS & Web' | 'GovTech & Ci
 export default function Projects() {
   const { ui, t } = useUi()
   const [filter, setFilter] = useState<CategoryFilter>('All')
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const openProjectModal = (p: Project) => {
+    setSelectedProject(p)
+    setIsModalOpen(true)
+  }
 
   const filterMatches = (p: Project) => {
     if (filter === 'All') return true
@@ -119,9 +129,34 @@ export default function Projects() {
         {filteredProjects.map((project) => (
           <div
             key={project.index}
-            className="group relative flex flex-col justify-between rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/70 p-5 sm:p-6 shadow-xs transition-all duration-300 hover:border-zinc-400 dark:hover:border-zinc-600 hover:-translate-y-1 hover:shadow-lg"
+            className="group relative flex flex-col justify-between rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/70 p-5 sm:p-6 shadow-xs transition-all duration-300 hover:border-zinc-400 dark:hover:border-zinc-600 hover:-translate-y-1 hover:shadow-lg overflow-hidden"
           >
             <div>
+              {/* Optional Screenshot Preview Banner */}
+              {project.image && (
+                <div
+                  onClick={() => openProjectModal(project)}
+                  className="mb-4 relative -mx-5 -mt-5 sm:-mx-6 sm:-mt-6 border-b border-zinc-100 dark:border-zinc-800/80 bg-zinc-100 dark:bg-zinc-950 overflow-hidden cursor-pointer group/thumb h-44 sm:h-48"
+                >
+                  <img
+                    src={project.image}
+                    alt={`${project.name} UI preview`}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover/thumb:scale-105"
+                    loading="lazy"
+                  />
+                  {/* Subtle Gradient & Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-200 flex items-end justify-between p-3.5 text-white">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-medium border border-white/30 shadow-md">
+                      <Eye size={13} />
+                      <span>Click to view system modal</span>
+                    </span>
+                    <span className="text-[10px] font-mono tracking-wider bg-black/60 px-2 py-0.5 rounded">
+                      PREVIEW
+                    </span>
+                  </div>
+                </div>
+              )}
+
               {/* Top Row: Index Badge & Status Indicator */}
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-zinc-100 dark:border-zinc-800/80">
                 <span className="font-mono text-xs text-zinc-600 dark:text-zinc-400 font-semibold tracking-wider">
@@ -133,14 +168,17 @@ export default function Projects() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </span>
-                  <span>Operational</span>
+                  <span>{project.status || 'Operational'}</span>
                 </div>
               </div>
 
               {/* Title & Category */}
               <div className="space-y-1">
                 <div className="flex items-baseline justify-between gap-2">
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-foreground group-hover:text-zinc-800 dark:group-hover:text-zinc-100 transition-colors">
+                  <h3
+                    onClick={() => openProjectModal(project)}
+                    className="font-display text-lg sm:text-xl font-bold text-foreground group-hover:text-zinc-800 dark:group-hover:text-zinc-100 transition-colors cursor-pointer"
+                  >
                     {project.name}
                   </h3>
                   <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400 shrink-0">
@@ -148,12 +186,14 @@ export default function Projects() {
                   </span>
                 </div>
                 {project.fullName && (
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">{project.fullName}</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">
+                    {project.fullName}
+                  </p>
                 )}
               </div>
 
-              {/* Description without awkward truncation */}
-              <p className="mt-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              {/* Description */}
+              <p className="mt-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3">
                 {t(project.description)}
               </p>
 
@@ -164,10 +204,10 @@ export default function Projects() {
                     Key Deliverables
                   </p>
                   <ul className="space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
-                    {project.focus.slice(0, 4).map((f, i) => (
+                    {project.focus.slice(0, 3).map((f, i) => (
                       <li key={i} className="flex items-center gap-2">
                         <span className="h-1 w-1 rounded-full bg-zinc-400 shrink-0" />
-                        <span>{f}</span>
+                        <span className="truncate">{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -179,22 +219,38 @@ export default function Projects() {
             <div className="mt-5 pt-4 border-t border-zinc-100 dark:border-zinc-800/80 flex flex-col gap-3">
               {/* Tech stack badge items */}
               <div className="flex flex-wrap items-center gap-1.5">
-                {project.technologies.map((tech) => (
+                {project.technologies.slice(0, 5).map((tech) => (
                   <span
                     key={tech}
                     className="skill-inner-shadow inline-flex items-center gap-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-100/70 dark:bg-zinc-900 px-2 py-0.5 text-[11px] font-mono text-zinc-700 dark:text-zinc-300"
                   >
-                    <span aria-hidden="true" className="text-xs">{techIconMap[tech] || '•'}</span>
+                    <span aria-hidden="true" className="text-xs">
+                      {techIconMap[tech] || '•'}
+                    </span>
                     <span>{tech}</span>
                   </span>
                 ))}
+                {project.technologies.length > 5 && (
+                  <span className="text-[10px] font-mono text-zinc-400">
+                    +{project.technologies.length - 5}
+                  </span>
+                )}
               </div>
 
-              {/* Action Links */}
+              {/* Action Links & Modal Trigger */}
               <div className="flex items-center justify-between text-xs pt-1">
-                <span className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono">
-                  {project.badge || (project.name === 'LinkCoop' || project.name === 'Hulamverde' || project.name === 'PVDCI IP Tracker' ? 'PVDCI Coop' : 'Full-Stack')}
-                </span>
+                {/* Modal View Trigger Button */}
+                <button
+                  type="button"
+                  onClick={() => openProjectModal(project)}
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+                >
+                  <Eye size={13} />
+                  <span>{project.image ? 'Preview Output' : 'View Details'}</span>
+                  {project.image && (
+                    <Sparkles size={11} className="text-emerald-500 animate-pulse" />
+                  )}
+                </button>
 
                 <div className="flex items-center gap-3">
                   {project.repo && (
@@ -207,7 +263,11 @@ export default function Projects() {
                     >
                       <Github aria-hidden="true" size={13} />
                       <span>Code</span>
-                      <ArrowUpRight aria-hidden="true" size={10} className="text-zinc-500 dark:text-zinc-400" />
+                      <ArrowUpRight
+                        aria-hidden="true"
+                        size={10}
+                        className="text-zinc-500 dark:text-zinc-400"
+                      />
                     </a>
                   )}
                   {project.live && (
@@ -220,7 +280,11 @@ export default function Projects() {
                     >
                       <ExternalLink aria-hidden="true" size={13} />
                       <span>Live Site</span>
-                      <ArrowUpRight aria-hidden="true" size={10} className="text-zinc-500 dark:text-zinc-400" />
+                      <ArrowUpRight
+                        aria-hidden="true"
+                        size={10}
+                        className="text-zinc-500 dark:text-zinc-400"
+                      />
                     </a>
                   )}
                 </div>
@@ -229,6 +293,15 @@ export default function Projects() {
           </div>
         ))}
       </div>
+
+      {/* Interactive Project Details & Output Modal */}
+      <ProjectModal
+        project={selectedProject}
+        projectsList={projects}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSelectProject={(p) => setSelectedProject(p)}
+      />
     </section>
   )
 }

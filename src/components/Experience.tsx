@@ -111,7 +111,15 @@ export default function Experience() {
             Hands-on software development, cooperative engineering & systems maintenance
           </p>
         </div>
-        <span className="text-xs font-mono text-zinc-400">0{entries.length} Roles</span>
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/60 text-zinc-700 dark:text-zinc-300 shadow-2xs">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
+            <span>Career Journey • 2023 — Present</span>
+          </span>
+        </div>
       </div>
 
       {/* Experience Cards List */}

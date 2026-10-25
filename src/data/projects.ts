@@ -7,6 +7,9 @@ export type Project = {
   technologies: string[]
   repo?: string
   live?: string
+  image?: string
+  screenshots?: string[]
+  status?: string
   focus?: string[]
   note?: string
   badge?: string
@@ -20,6 +23,9 @@ export const projects: Project[] = [
     category: 'ISP & Billing System',
     description:
       'Comprehensive cable internet subscription and billing management platform developed for PVDCI Coop. Streamlines subscriber account registration, internet plan provisioning, automated monthly billing cycles, payment collection with official receipting, and real-time connectivity status tracking.',
+    image: '/images/projects/linkcoop.png',
+    screenshots: ['/images/projects/linkcoop.png'],
+    status: 'In Active Production',
     technologies: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'JavaScript'],
     focus: [
       'Subscriber account management',
@@ -39,6 +45,9 @@ export const projects: Project[] = [
     category: 'Financial & Lending Management',
     description:
       'End-to-end loan management and billing system developed for PVDCI Coop. Automates member loan applications, credit approval workflows, amortization scheduling, interest and penalty computations, payment tracking, and ledger accounting.',
+    image: '/images/projects/hulamverde.png',
+    screenshots: ['/images/projects/hulamverde.png'],
+    status: 'In Active Production',
     technologies: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'JavaScript'],
     focus: [
       'Member loan applications & approval',
@@ -58,6 +67,9 @@ export const projects: Project[] = [
     category: 'NOC & Network Operations',
     description:
       'Network Operations Center (NOC) and IP tracking platform engineered for PVDCI Coop. Centralizes subscriber IP address allocations, modem and ONT hardware assignments, subnet pool monitoring, and real-time connectivity status to streamline network operations and technical diagnostics.',
+    image: '/images/projects/iptracker.png',
+    screenshots: ['/images/projects/iptracker.png'],
+    status: 'In Active Production',
     technologies: ['Laravel', 'React', 'MySQL', 'Tailwind CSS', 'PHP'],
     focus: [
       'Subscriber & modem IP mapping',
@@ -76,6 +88,9 @@ export const projects: Project[] = [
     category: 'SaaS Application',
     description:
       'Real-time resume builder and ATS-oriented document platform. Features a split-screen live preview, dynamic section reordering, PDF compilation, shareable public URLs, and tailored formatting designed to pass applicant tracking systems.',
+    image: '/images/projects/cheapresume.png',
+    screenshots: ['/images/projects/cheapresume.png'],
+    status: 'Open Source SaaS',
     technologies: ['Laravel 11', 'Vue 3', 'Inertia.js', 'Tailwind CSS', 'MySQL'],
     repo: 'https://github.com/charlesdcayetano/cheapresume',
     badge: 'Full-Stack',
@@ -95,6 +110,9 @@ export const projects: Project[] = [
     category: 'Academic Management',
     description:
       'Full-featured academic management platform built to centralize school administration. Automates student enrollment workflows, faculty class assignments, semester scheduling, grade recording, and scholastic transcript generation.',
+    image: '/images/projects/csas.webp',
+    screenshots: ['/images/projects/csas.webp'],
+    status: 'Academic Platform',
     technologies: ['Laravel', 'PHP', 'MySQL', 'Bootstrap', 'JavaScript'],
     repo: 'https://github.com/charlesdcayetano/csas',
     badge: 'Full-Stack',
@@ -113,6 +131,9 @@ export const projects: Project[] = [
     category: 'Healthcare Management',
     description:
       'Clinical operations and medical records platform designed to modernize healthcare workflows. Handles digital patient health records (EHR), physician appointment scheduling, triage queues, and pharmacy inventory management.',
+    image: '/images/projects/medicore.webp',
+    screenshots: ['/images/projects/medicore.webp'],
+    status: 'Clinical EHR System',
     technologies: ['Laravel', 'PHP', 'MySQL', 'REST APIs', 'Bootstrap'],
     repo: 'https://github.com/charlesdcayetano/medicore',
     badge: 'Full-Stack',
