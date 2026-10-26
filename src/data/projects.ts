@@ -154,6 +154,8 @@ export const projects: Project[] = [
     category: 'Booking Platform',
     description:
       'High-performance reservation and scheduling management system. Provides real-time slot availability, automated booking confirmation, customer record handling, status transitions, and payment tracking with Redis caching.',
+    image: '/images/projects/cbms.webp',
+    screenshots: ['/images/projects/cbms.webp'],
     technologies: ['Laravel 11', 'PHP', 'MySQL', 'Redis', 'Tailwind CSS'],
     repo: 'https://github.com/charlesdcayetano/bms',
     badge: 'Full-Stack',
@@ -172,6 +174,8 @@ export const projects: Project[] = [
     category: 'Transit & Travel',
     description:
       'Interactive transit and commuter navigation utility for Western Visayas. Helps commuters check inter-city route details, estimated fare calculations, terminal locations, and scheduled departure times with Leaflet map visualization.',
+    image: '/images/projects/byahe-ta.webp',
+    screenshots: ['/images/projects/byahe-ta.webp'],
     technologies: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Leaflet'],
     repo: 'https://github.com/charlesdcayetano/byahe-ta',
     badge: 'Full-Stack',
