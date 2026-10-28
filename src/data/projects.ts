@@ -193,6 +193,8 @@ export const projects: Project[] = [
     category: 'Public Service / GovTech',
     description:
       'Digital public service and appointment portal built for local government units. Enables residents to request barangay certificates, schedule in-person appointments, track application progress in real-time, and minimize civic office wait times.',
+    image: '/images/projects/brgytas.png',
+    screenshots: ['/images/projects/brgytas.png'],
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel'],
     repo: 'https://github.com/charlesdcayetano/barangay-timpas-appointment',
     live: 'https://barangay-timpas-appointment.vercel.app/',
