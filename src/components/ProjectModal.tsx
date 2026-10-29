@@ -65,7 +65,8 @@ export default function ProjectModal({
   onClose,
   onSelectProject,
 }: ProjectModalProps) {
-  const { t } = useUi()
+  const { t, language } = useUi()
+  const isFil = language === 'fil'
   const [isZoomed, setIsZoomed] = useState(false)
 
   // Keyboard navigation (ESC, Left, Right)
@@ -201,7 +202,11 @@ export default function ProjectModal({
                 <span className="truncate">
                   {project.live
                     ? project.live.replace(/^https?:\/\//, '')
-                    : `${project.name.toLowerCase().replace(/\s+/g, '-')}.internal.pvdci.coop`}
+                    : isCoopPrivate
+                      ? `${project.name.toLowerCase().replace(/\s+/g, '-')}.internal.pvdci.coop`
+                      : project.repo
+                        ? project.repo.replace(/^https?:\/\//, '')
+                        : `${project.name.toLowerCase().replace(/\s+/g, '-')}.dev`}
                 </span>
               </div>
               <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider hidden sm:inline">
@@ -219,7 +224,7 @@ export default function ProjectModal({
                 />
                 <div className="absolute bottom-4 right-6 hidden sm:flex items-center gap-2 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-zinc-200 font-mono shadow-lg">
                   <Sparkles size={12} className="text-emerald-400" />
-                  <span>Verified Production System Output</span>
+                  <span>{isFil ? 'Napatunayang Output ng Sistema' : 'Verified Production System Output'}</span>
                 </div>
               </div>
             ) : (
@@ -229,10 +234,12 @@ export default function ProjectModal({
                 </div>
                 <div>
                   <h4 className="font-display font-semibold text-foreground text-sm">
-                    {project.name} Architecture & System Codebase
+                    {project.name} Architecture &amp; System Codebase
                   </h4>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 max-w-md">
-                    Full functional modules, database schemas, and API controllers are configured. Additional output screenshots are currently being scheduled for upload.
+                    {isFil
+                      ? 'Naka-configure ang mga functional modules, database schema, at API controllers. Nakaiskedyul ang upload ng mga karagdagang output screenshots.'
+                      : 'Full functional modules, database schemas, and API controllers are configured. Additional output screenshots are currently being scheduled for upload.'}
                   </p>
                 </div>
               </div>
@@ -263,7 +270,7 @@ export default function ProjectModal({
                 <div className="space-y-3 pt-2">
                   <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5 font-bold">
                     <Layers size={13} className="text-zinc-600 dark:text-zinc-400" />
-                    <span>Engineered Capabilities & Modules</span>
+                    <span>{isFil ? 'Mga Kakayahan at Modulo ng Sistema' : 'Engineered Capabilities & Modules'}</span>
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {project.focus.map((item, i) => (
@@ -301,7 +308,7 @@ export default function ProjectModal({
               {/* Stack List */}
               <div className="space-y-2.5">
                 <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 font-bold">
-                  Technology Stack
+                  {isFil ? 'Stack ng Teknolohiya' : 'Technology Stack'}
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
                   {project.technologies.map((tech) => (
@@ -319,14 +326,14 @@ export default function ProjectModal({
               {/* Status Indicator */}
               <div className="space-y-1.5 pt-2">
                 <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 font-bold block">
-                  Deployment Status
+                  {isFil ? 'Katayuan ng Deployment' : 'Deployment Status'}
                 </span>
                 <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400">
                   <span className="relative flex h-2 w-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                   </span>
-                  <span>{project.status || 'Active & Operational'}</span>
+                  <span>{project.status ? (isFil && project.status === 'Operational' ? 'Gumagana' : project.status) : (isFil ? 'Aktibo at Gumagana' : 'Active & Operational')}</span>
                 </div>
               </div>
 
@@ -339,7 +346,7 @@ export default function ProjectModal({
                     rel="noopener noreferrer"
                     className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-foreground text-background font-medium text-xs shadow-sm hover:opacity-95 transition-opacity"
                   >
-                    <span>Launch Live Application</span>
+                    <span>{isFil ? 'Buksan ang Live Application' : 'Launch Live Application'}</span>
                     <ExternalLink size={13} />
                   </a>
                 )}
@@ -352,7 +359,7 @@ export default function ProjectModal({
                     className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-foreground font-medium text-xs hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
                   >
                     <Github size={14} />
-                    <span>Inspect GitHub Repository</span>
+                    <span>{isFil ? 'Tingnan ang GitHub Repository' : 'Inspect GitHub Repository'}</span>
                   </a>
                 )}
               </div>
@@ -378,7 +385,7 @@ export default function ProjectModal({
             }`}
           >
             <ChevronLeft size={14} />
-            <span>Previous</span>
+            <span>{isFil ? 'Nakaraan' : 'Previous'}</span>
             {prevProject && (
               <span className="hidden sm:inline text-zinc-500 font-sans ml-1">
                 ({prevProject.name})
@@ -387,9 +394,13 @@ export default function ProjectModal({
           </button>
 
           <span className="text-[11px] font-mono text-zinc-600 dark:text-zinc-400 hidden sm:inline">
-            Use <kbd className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800">←</kbd> and{' '}
-            <kbd className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800">→</kbd> to browse •{' '}
-            <kbd className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800">ESC</kbd> to close
+            {isFil ? 'Pindutin ang' : 'Use'}{' '}
+            <kbd className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800">←</kbd>{' '}
+            {isFil ? 'at' : 'and'}{' '}
+            <kbd className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800">→</kbd>{' '}
+            {isFil ? 'para mag-browse •' : 'to browse •'}{' '}
+            <kbd className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800">ESC</kbd>{' '}
+            {isFil ? 'para isara' : 'to close'}
           </span>
 
           <button
@@ -412,7 +423,7 @@ export default function ProjectModal({
                 ({nextProject.name})
               </span>
             )}
-            <span>Next</span>
+            <span>{isFil ? 'Susunod' : 'Next'}</span>
             <ChevronRight size={14} />
           </button>
         </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Sun, Moon } from 'lucide-react'
 import { getStoredTheme, setTheme, type Theme } from '../utils/theme'
 import { useUi } from '../i18n/useUi'
+import { playPop } from '../utils/sound'
 
 const DARK_QUERY = '(prefers-color-scheme: dark)'
 
@@ -28,6 +29,7 @@ export default function ThemeToggle() {
   const label = isDark ? ui.switchToLight : ui.switchToDark
 
   function toggle() {
+    playPop()
     setTheme(next)
     setThemeState(next)
   }

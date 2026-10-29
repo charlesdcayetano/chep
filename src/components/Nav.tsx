@@ -9,22 +9,35 @@ import {
   Layers,
   Mail,
 } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import LanguageToggle from './LanguageToggle'
 import ThemeToggle from './ThemeToggle'
 import { profile } from '../data/profile'
 import { useLanguage } from '../i18n/LanguageContext'
+import { playClick, playHover } from '../utils/sound'
+
+export type NavPage = 'home' | 'gear' | 'ask' | 'chat' | 'typing-test'
 
 interface NavProps {
   onOpenSearch?: () => void
+  currentPage?: NavPage
+  onNavigate?: (page: NavPage, sectionId?: string) => void
 }
 
-export default function Nav({ onOpenSearch }: NavProps) {
+export default function Nav({ onOpenSearch, currentPage = 'home', onNavigate }: NavProps) {
   const { language } = useLanguage()
-  const [activeSection, setActiveSection] = useState('experience')
+  const [activeSection, setActiveSection] = useState<string>(currentPage === 'home' ? 'experience' : currentPage)
   const [hoveredSection, setHoveredSection] = useState<string | null>(null)
   const [isDesktop, setIsDesktop] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+
+  // Sync active section when currentPage changes
+  useEffect(() => {
+    if (currentPage !== 'home') {
+      setActiveSection(currentPage)
+    }
+  }, [currentPage])
 
   // Track window scroll for morphing pill
   useEffect(() => {
@@ -72,6 +85,8 @@ export default function Nav({ onOpenSearch }: NavProps) {
 
   // Smooth 60fps passive scroll observer using RAF
   useEffect(() => {
+    if (currentPage !== 'home') return
+
     let ticking = false
     const handleScroll = () => {
       if (!ticking) {
@@ -100,9 +115,10 @@ export default function Nav({ onOpenSearch }: NavProps) {
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [currentPage])
 
-  const navLinks = [
+  // Core Section Links (Rendered as text links)
+  const sectionLinks = [
     {
       id: 'experience',
       label: language === 'fil' ? 'Karanasan' : 'Work',
@@ -135,9 +151,53 @@ export default function Nav({ onOpenSearch }: NavProps) {
     },
   ]
 
+  // Interactive Module Apps (Rendered as Iconify icon buttons with smooth tooltips)
+  const appLinks = [
+    {
+      id: 'gear' as NavPage,
+      label: language === 'fil' ? 'Gamit' : 'Gear',
+      tooltip: language === 'fil' ? 'Gamit (Gear Setup)' : 'Gear Setup',
+      href: '#gear',
+      icon: 'solar:laptop-minimalistic-linear',
+    },
+    {
+      id: 'ask' as NavPage,
+      label: language === 'fil' ? 'Magtanong' : 'Ask Anything',
+      tooltip: language === 'fil' ? 'Magtanong kay Chep (AI)' : 'Ask Anything (AI Assistant)',
+      href: '#ask',
+      icon: 'solar:magic-stick-3-linear',
+    },
+    {
+      id: 'chat' as NavPage,
+      label: language === 'fil' ? 'Kwentuhan' : 'Community Chat',
+      tooltip: language === 'fil' ? 'Kwentuhan (Community Wall)' : 'Community Chat & Wall',
+      href: '#chat',
+      icon: 'solar:chat-round-dots-linear',
+    },
+    {
+      id: 'typing-test' as NavPage,
+      label: language === 'fil' ? 'Typing Test' : 'Typing Test',
+      tooltip: language === 'fil' ? 'Pagsusulit sa Pag-type' : 'Developer Typing Test',
+      href: '#typing-test',
+      icon: 'solar:keyboard-linear',
+    },
+  ]
+
   const handleLinkClick = (id: string, href: string) => {
+    playClick()
     setActiveSection(id)
     setMobileMenuOpen(false)
+
+    if (id === 'gear' || id === 'ask' || id === 'chat' || id === 'typing-test') {
+      onNavigate?.(id as NavPage)
+      return
+    }
+
+    if (currentPage !== 'home') {
+      onNavigate?.('home', id)
+      return
+    }
+
     const el = document.querySelector(href)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' })
@@ -150,8 +210,8 @@ export default function Nav({ onOpenSearch }: NavProps) {
         aria-label="Main Navigation"
         className={`fixed left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1.5rem)] sm:w-[calc(100%-2rem)] border border-border/40 dark:border-white/10 bg-background/80 backdrop-blur-xl transition-all duration-300 ease-out ${
           isScrolled
-            ? 'top-3.5 h-[52px] rounded-full max-w-xs sm:max-w-md md:max-w-2xl px-3 sm:px-4 shadow-lg'
-            : 'top-6 h-16 rounded-3xl max-w-xl md:max-w-4xl lg:max-w-5xl px-5 sm:px-6 shadow-sm'
+            ? 'top-3.5 h-[52px] rounded-full max-w-xs sm:max-w-md md:max-w-3xl lg:max-w-5xl xl:max-w-6xl px-3 sm:px-4 shadow-lg'
+            : 'top-6 h-16 rounded-3xl max-w-xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl px-4 sm:px-6 shadow-sm'
         }`}
       >
         <div className="flex h-full items-center justify-between gap-2 w-full min-w-0">
@@ -162,7 +222,12 @@ export default function Nav({ onOpenSearch }: NavProps) {
               aria-label="Chep — Back to top"
               onClick={(e) => {
                 e.preventDefault()
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                playClick()
+                if (currentPage !== 'home') {
+                  onNavigate?.('home', 'top')
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }
               }}
               className="group flex shrink-0 items-center gap-1.5 sm:gap-2 transition-opacity hover:opacity-80 active:scale-95"
             >
@@ -183,19 +248,25 @@ export default function Nav({ onOpenSearch }: NavProps) {
               className="hidden md:flex items-center gap-0.5 shrink-0"
               onMouseLeave={() => setHoveredSection(null)}
             >
-              {navLinks.map((link) => {
+              {sectionLinks.map((link) => {
                 const isPillTarget = hoveredSection
                   ? hoveredSection === link.id
-                  : activeSection === link.id
+                  : currentPage === 'home' && activeSection === link.id
 
                 return (
                   <a
                     key={link.id}
                     href={link.href}
-                    onMouseEnter={() => setHoveredSection(link.id)}
-                    onClick={() => setActiveSection(link.id)}
-                    className={`relative rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 ${
-                      isScrolled ? 'px-2 lg:px-2.5 py-1' : 'px-2.5 sm:px-3 py-1.5'
+                    onMouseEnter={() => {
+                      playHover()
+                      setHoveredSection(link.id)
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleLinkClick(link.id, link.href)
+                    }}
+                    className={`relative rounded-full font-medium whitespace-nowrap transition-all duration-200 ${
+                      isScrolled ? 'px-2 py-1 text-[11px]' : 'px-2.5 xl:px-3 py-1.5 text-xs'
                     } ${
                       isPillTarget
                         ? 'text-foreground font-semibold bg-zinc-200/80 dark:bg-white/15 shadow-xs'
@@ -206,6 +277,58 @@ export default function Nav({ onOpenSearch }: NavProps) {
                   </a>
                 )
               })}
+
+              {/* Vertical Divider separating Core Sections and Interactive App Modules */}
+              <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-800 mx-1.5 shrink-0" />
+
+              {/* Interactive Module Apps represented as Iconify Icons */}
+              <div className="flex items-center gap-1 shrink-0">
+                {appLinks.map((app) => {
+                  const isActive = currentPage === app.id
+                  const isHovered = hoveredSection === app.id
+
+                  return (
+                    <div key={app.id} className="relative group">
+                      <a
+                        href={app.href}
+                        aria-label={app.tooltip}
+                        onMouseEnter={() => {
+                          playHover()
+                          setHoveredSection(app.id)
+                        }}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          handleLinkClick(app.id, app.href)
+                        }}
+                        className={`relative flex items-center justify-center rounded-full transition-all duration-200 ${
+                          isScrolled ? 'size-7' : 'size-8'
+                        } ${
+                          isActive
+                            ? 'text-foreground font-semibold bg-zinc-200/90 dark:bg-white/20 shadow-xs ring-1 ring-zinc-300 dark:ring-white/20'
+                            : isHovered
+                            ? 'text-foreground bg-zinc-100 dark:bg-zinc-800/70'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-zinc-100/60 dark:hover:bg-zinc-800/40'
+                        }`}
+                      >
+                        <Icon
+                          icon={app.icon}
+                          className={`size-4 shrink-0 transition-transform duration-150 ${
+                            isHovered ? 'scale-110' : 'scale-100'
+                          }`}
+                        />
+                      </a>
+
+                      {/* Micro floating tooltip on hover */}
+                      <div className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-150 transform group-hover:translate-y-0 translate-y-1 z-50">
+                        <div className="relative px-2 py-0.5 rounded-md text-[10px] font-mono tracking-tight whitespace-nowrap bg-zinc-900 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900 shadow-md">
+                          {app.label}
+                          <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-x-4 border-x-transparent border-b-4 border-b-zinc-900 dark:border-b-zinc-100" />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           </div>
 
@@ -276,9 +399,12 @@ export default function Nav({ onOpenSearch }: NavProps) {
       >
         {/* Menu Links */}
         <div className="space-y-1">
-          {navLinks.map((link) => {
-            const Icon = link.icon
-            const isActive = activeSection === link.id
+          <div className="px-3 pt-1 pb-1 text-[10px] font-mono uppercase tracking-wider text-muted-foreground/80">
+            {language === 'fil' ? 'Mga Seksyon' : 'Sections'}
+          </div>
+          {sectionLinks.map((link) => {
+            const IconComponent = link.icon
+            const isActive = currentPage === 'home' && activeSection === link.id
 
             return (
               <a
@@ -288,15 +414,15 @@ export default function Nav({ onOpenSearch }: NavProps) {
                   e.preventDefault()
                   handleLinkClick(link.id, link.href)
                 }}
-                className={`group flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 ${
+                className={`group flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all duration-150 ${
                   isActive
                     ? 'bg-zinc-100 dark:bg-zinc-800/90 text-foreground font-semibold shadow-xs'
                     : 'text-muted-foreground hover:text-foreground hover:bg-zinc-50 dark:hover:bg-zinc-800/40'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Icon
-                    size={16}
+                  <IconComponent
+                    size={15}
                     className={`shrink-0 transition-colors ${
                       isActive
                         ? 'text-foreground'
@@ -306,7 +432,48 @@ export default function Nav({ onOpenSearch }: NavProps) {
                   <span>{link.label}</span>
                 </div>
                 {isActive && (
-                  <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-normal">
+                  <span className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-normal">
+                    <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    active
+                  </span>
+                )}
+              </a>
+            )
+          })}
+
+          <div className="pt-2 mt-1 border-t border-border/30 dark:border-white/5 px-3 pb-1 text-[10px] font-mono uppercase tracking-wider text-muted-foreground/80">
+            {language === 'fil' ? 'Mga Apps at Gamit' : 'Interactive Apps'}
+          </div>
+          {appLinks.map((app) => {
+            const isActive = currentPage === app.id
+
+            return (
+              <a
+                key={app.id}
+                href={app.href}
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleLinkClick(app.id, app.href)
+                }}
+                className={`group flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all duration-150 ${
+                  isActive
+                    ? 'bg-zinc-100 dark:bg-zinc-800/90 text-foreground font-semibold shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-zinc-50 dark:hover:bg-zinc-800/40'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <Icon
+                    icon={app.icon}
+                    className={`size-4 shrink-0 transition-colors ${
+                      isActive
+                        ? 'text-foreground'
+                        : 'text-muted-foreground group-hover:text-foreground'
+                    }`}
+                  />
+                  <span>{app.tooltip}</span>
+                </div>
+                {isActive && (
+                  <span className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-normal">
                     <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     active
                   </span>

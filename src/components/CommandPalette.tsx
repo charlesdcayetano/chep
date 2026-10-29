@@ -10,29 +10,37 @@ import {
   Check,
   Languages,
   Code2,
+  Laptop,
+  Bot,
+  MessagesSquare,
+  Keyboard,
 } from 'lucide-react'
 import { projects } from '../data/projects'
 import { experience } from '../data/experience'
 import { currentJob } from '../data/currentJob'
 import { profile } from '../data/profile'
+import { gearList } from '../data/gear'
 import { getStoredTheme, setTheme } from '../utils/theme'
 import { useLanguage } from '../i18n/LanguageContext'
+import { playClick, playPop } from '../utils/sound'
+import type { NavPage } from './Nav'
 
 interface CommandPaletteProps {
   isOpen: boolean
   onClose: () => void
+  onNavigate?: (page: NavPage, sectionId?: string) => void
 }
 
 interface CommandItem {
   id: string
   title: string
   subtitle?: string
-  category: 'Navigation' | 'Projects' | 'Experience' | 'Actions'
+  category: 'Navigation' | 'Projects' | 'Gear' | 'Experience' | 'Actions'
   icon: React.ReactNode
   onSelect: () => void
 }
 
-export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
+export default function CommandPalette({ isOpen, onClose, onNavigate }: CommandPaletteProps) {
   const [query, setQuery] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [copiedEmail, setCopiedEmail] = useState(false)
@@ -121,6 +129,54 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
       onSelect: () => scrollToSection('skills'),
     },
     {
+      id: 'nav-gear',
+      title: language === 'fil' ? 'Kagamitan at Setup (Gear)' : 'Equipment & Gear Setup',
+      subtitle: `Browse ${gearList.length} workspace essentials, ASUS TUF A15, Xiaomi 180Hz monitor & peripherals`,
+      category: 'Navigation',
+      icon: <Laptop size={16} />,
+      onSelect: () => {
+        playClick()
+        onClose()
+        onNavigate?.('gear')
+      },
+    },
+    {
+      id: 'nav-ask',
+      title: language === 'fil' ? 'Magtanong Kahit Ano (Ask Anything)' : 'Ask Anything (AI Assistant)',
+      subtitle: language === 'fil' ? 'Tanungin ang AI tungkol sa projects, tech stack, at background ni Chep' : "Interactive AI answering questions about Chep's career & stack",
+      category: 'Navigation',
+      icon: <Bot size={16} />,
+      onSelect: () => {
+        playClick()
+        onClose()
+        onNavigate?.('ask')
+      },
+    },
+    {
+      id: 'nav-chat',
+      title: language === 'fil' ? 'Community Chat at Guestbook' : 'Community Chat & Guestbook',
+      subtitle: language === 'fil' ? 'Mag-iwan ng mensahe o komento sa community board' : 'Leave a note or connect on the developer guestbook',
+      category: 'Navigation',
+      icon: <MessagesSquare size={16} />,
+      onSelect: () => {
+        playClick()
+        onClose()
+        onNavigate?.('chat')
+      },
+    },
+    {
+      id: 'nav-typing',
+      title: language === 'fil' ? 'Typing Test (Developer Benchmark)' : 'Typing Test (Developer Benchmark)',
+      subtitle: language === 'fil' ? 'Subukan ang iyong bilis mag-type ng code gamit ang mechanical sound' : 'Test your coding typing speed with real-world code & quotes',
+      category: 'Navigation',
+      icon: <Keyboard size={16} />,
+      onSelect: () => {
+        playClick()
+        onClose()
+        onNavigate?.('typing-test')
+      },
+    },
+    {
       id: 'nav-contact',
       title: 'Get In Touch',
       subtitle: 'Send message, email, or connect',
@@ -166,6 +222,19 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
         if (p.live) window.open(p.live, '_blank')
         else if (p.repo) window.open(p.repo, '_blank')
         else scrollToSection('projects')
+        onClose()
+      },
+    })),
+
+    // Gear & Hardware
+    ...gearList.map((g) => ({
+      id: `gear-${g.id}`,
+      title: g.name,
+      subtitle: `${g.category} • ${g.specs}`,
+      category: 'Gear' as const,
+      icon: <Laptop size={16} />,
+      onSelect: () => {
+        window.open(g.url, '_blank')
         onClose()
       },
     })),

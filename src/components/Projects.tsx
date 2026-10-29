@@ -47,10 +47,25 @@ const techIconMap: Record<string, React.ReactNode> = {
 type CategoryFilter = 'All' | 'Systems & Billing' | 'SaaS & Web' | 'GovTech & Civic'
 
 export default function Projects() {
-  const { ui, t } = useUi()
+  const { ui, t, language } = useUi()
+  const isFil = language === 'fil'
   const [filter, setFilter] = useState<CategoryFilter>('All')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const getCategoryLabel = (cat: CategoryFilter) => {
+    if (!isFil) return cat
+    switch (cat) {
+      case 'All':
+        return 'Lahat'
+      case 'Systems & Billing':
+        return 'Sistema at Billing'
+      case 'SaaS & Web':
+        return 'SaaS at Web'
+      case 'GovTech & Civic':
+        return 'GovTech at Publiko'
+    }
+  }
 
   const openProjectModal = (p: Project) => {
     setSelectedProject(p)
@@ -93,11 +108,13 @@ export default function Projects() {
             {ui.selectedWork}
           </h2>
           <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
-            Production cooperative portals, business systems, and web utilities
+            {isFil
+              ? 'Mga live na portal ng kooperatiba, business systems, at web utilities'
+              : 'Production cooperative portals, business systems, and web utilities'}
           </p>
         </div>
         <span className="text-xs font-mono text-zinc-400 shrink-0">
-          {projects.length < 10 ? `0${projects.length}` : projects.length} Projects
+          {projects.length < 10 ? `0${projects.length}` : projects.length} {isFil ? 'Proyekto' : 'Projects'}
         </span>
       </div>
 
@@ -117,7 +134,7 @@ export default function Projects() {
                     : 'text-zinc-600 hover:text-foreground dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
                 }`}
               >
-                <span>{cat}</span>
+                <span>{getCategoryLabel(cat)}</span>
               </button>
             )
           }
@@ -148,7 +165,7 @@ export default function Projects() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-200 flex items-end justify-between p-3.5 text-white">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-medium border border-white/30 shadow-md">
                       <Eye size={13} />
-                      <span>Click to view system modal</span>
+                      <span>{isFil ? 'I-click para buksan ang detalye ng sistema' : 'Click to view system modal'}</span>
                     </span>
                     <span className="text-[10px] font-mono tracking-wider bg-black/60 px-2 py-0.5 rounded">
                       PREVIEW
@@ -168,7 +185,7 @@ export default function Projects() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </span>
-                  <span>{project.status || 'Operational'}</span>
+                  <span>{isFil && (project.status === 'Operational' || !project.status) ? 'Gumagana' : (project.status || 'Operational')}</span>
                 </div>
               </div>
 
@@ -201,7 +218,7 @@ export default function Projects() {
               {project.focus && project.focus.length > 0 && (
                 <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
                   <p className="text-[10px] font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-2">
-                    Key Deliverables
+                    {isFil ? 'Pangunahing Naihatid' : 'Key Deliverables'}
                   </p>
                   <ul className="space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
                     {project.focus.slice(0, 3).map((f, i) => (

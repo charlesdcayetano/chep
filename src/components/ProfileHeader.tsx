@@ -19,7 +19,8 @@ import EyeTrackingButton from './EyeTrackingButton'
 import MatrixText from './MatrixText'
 
 export default function ProfileHeader() {
-  const { t } = useUi()
+  const { t, language } = useUi()
+  const isFil = language === 'fil'
 
   return (
     <aside className="w-full lg:w-64 xl:w-72 lg:shrink-0">
@@ -46,7 +47,7 @@ export default function ProfileHeader() {
               <span className="absolute inline-flex h-full w-full animate-radar rounded-full bg-emerald-500 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            <span>Available for Hire</span>
+            <span>{isFil ? 'Bukas para sa Trabaho' : 'Available for Hire'}</span>
           </div>
         </div>
 
@@ -67,7 +68,7 @@ export default function ProfileHeader() {
             <Briefcase size={14} className="text-zinc-500 dark:text-zinc-400 shrink-0 mt-0.5" />
             <div className="min-w-0">
               <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
-                Current Role
+                {isFil ? 'Kasalukuyang Tungkulin' : 'Current Role'}
               </span>
               <span className="font-semibold text-foreground text-xs leading-tight">
                 {t(currentJob.role)} @{currentJob.org}
@@ -79,7 +80,7 @@ export default function ProfileHeader() {
             <MapPin size={14} className="text-zinc-500 dark:text-zinc-400 shrink-0 mt-0.5" />
             <div className="min-w-0">
               <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
-                Location
+                {isFil ? 'Lokasyon' : 'Location'}
               </span>
               <span className="font-medium text-foreground text-xs">
                 {profile.location}
@@ -91,7 +92,7 @@ export default function ProfileHeader() {
         {/* Narrative Bio with Inline Tech Badges (Icon + Name) Requested by User */}
         <p className="text-xs sm:text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
           <span className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-1.5">
-            <span>I build production-ready applications using </span>
+            <span>{isFil ? 'Gumagawa ako ng mga praktikal na aplikasyon gamit ang ' : 'I build production-ready applications using '}</span>
             <a
               href="https://laravel.com"
               target="_blank"
@@ -151,7 +152,7 @@ export default function ProfileHeader() {
               </span>
               <span className="ml-1 text-xs sm:text-sm font-bold">MySQL</span>
             </a>
-            <span> and </span>
+            <span>{isFil ? ' at ' : ' and '}</span>
             <a
               href="https://www.postgresql.org"
               target="_blank"
@@ -163,7 +164,11 @@ export default function ProfileHeader() {
               </span>
               <span className="ml-1 text-xs sm:text-sm font-bold">PostgreSQL</span>
             </a>
-            <span>. Specialized in core cooperative platforms, automated billing engines, and practical full-stack software.</span>
+            <span>
+              {isFil
+                ? '. Dalubhasa sa mga core cooperative platforms, automated billing engines, at praktikal na full-stack software.'
+                : '. Specialized in core cooperative platforms, automated billing engines, and practical full-stack software.'}
+            </span>
           </span>
         </p>
 
@@ -175,7 +180,7 @@ export default function ProfileHeader() {
             className="inline-flex items-center gap-2 rounded-full bg-foreground text-background px-4 py-2 text-sm font-medium transition-all duration-150 hover:opacity-90 active:scale-95 shadow-sm"
           >
             <Send size={13} />
-            <span>Get in touch</span>
+            <span>{isFil ? 'Makipag-ugnayan' : 'Get in touch'}</span>
           </a>
         </div>
 

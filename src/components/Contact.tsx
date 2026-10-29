@@ -4,12 +4,15 @@ import { FaGithub, FaLinkedin, FaFacebook, FaXTwitter } from 'react-icons/fa6'
 import { profile } from '../data/profile'
 import { useUi } from '../i18n/useUi'
 import { animateElasticClick } from '../utils/animeEffects'
+import { playClick, playSuccess } from '../utils/sound'
 
 export default function Contact() {
-  const { ui } = useUi()
+  const { ui, language } = useUi()
+  const isFil = language === 'fil'
   const [copied, setCopied] = useState(false)
 
   const copyEmail = () => {
+    playSuccess()
     navigator.clipboard.writeText(profile.email)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
@@ -26,13 +29,15 @@ export default function Contact() {
             {ui.contactText}
           </p>
         </div>
-        <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400">Get in touch</span>
+        <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400">
+          {isFil ? 'Makipag-ugnayan' : 'Get in touch'}
+        </span>
       </div>
 
       <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 p-6 sm:p-8 space-y-6">
         <div className="space-y-2">
           <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400 uppercase tracking-wider font-mono">
-            Direct Inquiry
+            {isFil ? 'Direktang Pagtatanong' : 'Direct Inquiry'}
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4">
             <div className="flex items-center gap-3 min-w-0">
@@ -40,7 +45,9 @@ export default function Contact() {
                 <Mail size={18} />
               </span>
               <div className="min-w-0">
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 font-mono">Email Address</p>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 font-mono">
+                  {isFil ? 'Email Address' : 'Email Address'}
+                </p>
                 <p className="font-mono text-sm sm:text-base font-semibold text-foreground truncate">
                   {profile.email}
                 </p>
@@ -58,15 +65,18 @@ export default function Contact() {
                 className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 px-4 py-2 text-xs font-semibold shadow-xs hover:bg-zinc-200 dark:hover:bg-zinc-700 active:scale-95 transition-all"
               >
                 {copied ? <Check size={13} className="text-emerald-500" /> : <Copy size={13} />}
-                <span>{copied ? 'Copied' : 'Copy'}</span>
+                <span>{copied ? (isFil ? 'Nakopya' : 'Copied') : (isFil ? 'Kopyahin' : 'Copy')}</span>
               </button>
               <a
                 href={`mailto:${profile.email}`}
-                onClick={(e) => animateElasticClick(e.currentTarget)}
+                onClick={(e) => {
+                  playClick()
+                  animateElasticClick(e.currentTarget)
+                }}
                 className="inline-flex items-center gap-1.5 rounded-lg bg-foreground text-background px-4 py-2 text-xs font-semibold shadow-xs hover:opacity-90 active:scale-95 transition-all"
               >
                 <Send size={13} />
-                <span>Compose</span>
+                <span>{isFil ? 'Mag-email' : 'Compose'}</span>
               </a>
             </div>
           </div>
@@ -75,7 +85,7 @@ export default function Contact() {
         {/* Social channels */}
         <div className="pt-2 border-t border-zinc-200/80 dark:border-zinc-800">
           <p className="text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-3">
-            Social &amp; Developer Profiles
+            {isFil ? 'Mga Social at Developer Profile' : 'Social & Developer Profiles'}
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <a

@@ -1,12 +1,21 @@
 import { ArrowUp } from 'lucide-react'
 import { profile } from '../data/profile'
 import { useUi } from '../i18n/useUi'
+import { playClick } from '../utils/sound'
 
 export default function Footer() {
-  const { ui } = useUi()
+  const { ui, language } = useUi()
   const year = new Date().getFullYear()
+  const isFil = language === 'fil'
 
   const scrollToTop = () => {
+    playClick()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const navigateToHash = (hash: string) => {
+    playClick()
+    window.location.hash = hash
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -28,6 +37,7 @@ export default function Footer() {
             href={profile.github}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={playClick}
             className="hover:text-foreground transition-colors"
           >
             GitHub
@@ -36,12 +46,54 @@ export default function Footer() {
             href={profile.linkedin}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={playClick}
             className="hover:text-foreground transition-colors"
           >
             LinkedIn
           </a>
           <a
+            href="#gear"
+            onClick={(e) => {
+              e.preventDefault()
+              navigateToHash('#gear')
+            }}
+            className="hover:text-foreground transition-colors"
+          >
+            {isFil ? 'Gamit (Gear)' : 'Gear'}
+          </a>
+          <a
+            href="#ask"
+            onClick={(e) => {
+              e.preventDefault()
+              navigateToHash('#ask')
+            }}
+            className="hover:text-foreground transition-colors"
+          >
+            {isFil ? 'Magtanong' : 'Ask Anything'}
+          </a>
+          <a
+            href="#chat"
+            onClick={(e) => {
+              e.preventDefault()
+              navigateToHash('#chat')
+            }}
+            className="hover:text-foreground transition-colors"
+          >
+            {isFil ? 'Kwentuhan' : 'Community Chat'}
+          </a>
+          <a
+            href="#typing-test"
+            onClick={(e) => {
+              e.preventDefault()
+              navigateToHash('#typing-test')
+            }}
+            className="hover:text-foreground transition-colors"
+          >
+            {isFil ? 'Typing Test' : 'Typing Test'}
+          </a>
+          <a
             href={`mailto:${profile.email}`}
+            onClick={playClick}
             className="hover:text-foreground transition-colors"
           >
             Email
@@ -50,16 +102,16 @@ export default function Footer() {
             type="button"
             onClick={scrollToTop}
             aria-label="Back to top"
-            className="inline-flex items-center gap-1 rounded-full border border-zinc-200 dark:border-zinc-800 px-3 py-1 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-foreground transition-all"
+            className="inline-flex items-center gap-1 rounded-full border border-zinc-200 dark:border-zinc-800 px-3 py-1 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-foreground transition-all active:scale-95"
           >
-            <span>Top</span>
+            <span>{isFil ? 'Itaas' : 'Top'}</span>
             <ArrowUp size={12} />
           </button>
         </div>
       </div>
 
       <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-zinc-600 dark:text-zinc-400 font-mono gap-2">
-        <p>© {year} {profile.name}. All rights reserved.</p>
+        <p>© {year} {profile.name}. {isFil ? 'Reserbado ang lahat ng karapatan.' : 'All rights reserved.'}</p>
         <p>Built with React &bull; TypeScript &bull; Tailwind CSS</p>
       </div>
     </footer>

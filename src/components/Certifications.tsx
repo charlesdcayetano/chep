@@ -12,7 +12,8 @@ import { certifications } from '../data/certifications'
 import { useUi } from '../i18n/useUi'
 
 export default function Certifications() {
-  const { ui, t } = useUi()
+  const { ui, t, language } = useUi()
+  const isFil = language === 'fil'
   const [showAll, setShowAll] = useState(false)
 
   // Primary featured certifications as requested by user
@@ -28,11 +29,13 @@ export default function Certifications() {
             {ui.certifications}
           </h2>
           <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
-            Key government ICT proficiency credentials and intensive software residencies
+            {isFil
+              ? 'Mga pangunahing kredensyal sa ICT at software certification mula sa gobyerno at industriya'
+              : 'Key government ICT proficiency credentials and intensive software residencies'}
           </p>
         </div>
         <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400">
-          0{featuredCerts.length} Featured Credentials
+          {isFil ? `0${featuredCerts.length} Tampok na Kredensyal` : `0${featuredCerts.length} Featured Credentials`}
         </span>
       </div>
 
@@ -140,8 +143,10 @@ export default function Certifications() {
               <Award size={14} className="text-zinc-400" />
               <span>
                 {showAll
-                  ? 'Hide additional credentials'
-                  : `View ${otherCerts.length} additional technical certificates (TESDA, Microsoft, AMA)`}
+                  ? (isFil ? 'Itago ang iba pang sertipikasyon' : 'Hide additional credentials')
+                  : (isFil
+                      ? `Tingnan ang ${otherCerts.length} pang teknikal na sertipikasyon (TESDA, Microsoft, AMA)`
+                      : `View ${otherCerts.length} additional technical certificates (TESDA, Microsoft, AMA)`)}
               </span>
             </span>
             <ChevronDown

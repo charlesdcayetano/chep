@@ -31,7 +31,8 @@ interface JobEntry {
 }
 
 export default function Experience() {
-  const { ui, t } = useUi()
+  const { ui, t, language } = useUi()
+  const isFil = language === 'fil'
 
   // Track expanded cards
   const [expandedIds, setExpandedIds] = useState<Record<string, boolean>>({
@@ -51,7 +52,7 @@ export default function Experience() {
       id: 'pvdci-current',
       role: t(currentJob.role),
       org: currentJob.org,
-      period: 'Nov 2025 — Present',
+      period: isFil ? 'Nob 2025 — Kasalukuyan' : 'Nov 2025 — Present',
       location: 'Roxas City, Capiz, Philippines',
       description: currentJob.description.map((line) => t(line)),
       technologies: [
@@ -108,7 +109,9 @@ export default function Experience() {
             {ui.experience}
           </h2>
           <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
-            Hands-on software development, cooperative engineering & systems maintenance
+            {isFil
+              ? 'Praktikal na software development, cooperative engineering at pagpapanatili ng sistema'
+              : 'Hands-on software development, cooperative engineering & systems maintenance'}
           </p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
@@ -117,7 +120,7 @@ export default function Experience() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            <span>Career Journey • 2023 — Present</span>
+            <span>{isFil ? 'Yugto ng Karera • 2023 — Kasalukuyan' : 'Career Journey • 2023 — Present'}</span>
           </span>
         </div>
       </div>
@@ -160,7 +163,7 @@ export default function Experience() {
                       </h3>
                       {job.current && (
                         <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                          Active
+                          {isFil ? 'Aktibo' : 'Active'}
                         </span>
                       )}
                     </div>
@@ -205,7 +208,7 @@ export default function Experience() {
                     {job.technologies.length > 0 && (
                       <div>
                         <h4 className="text-[11px] font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-2">
-                          Technologies &amp; Systems
+                          {isFil ? 'Mga Teknolohiya at Sistema' : 'Technologies & Systems'}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {job.technologies.map((tech) => (
@@ -224,7 +227,7 @@ export default function Experience() {
                     {/* Bullet points */}
                     <div>
                       <h4 className="text-[11px] font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-2">
-                        Key Contributions &amp; Scope
+                        {isFil ? 'Pangunahing Kontribusyon at Saklaw' : 'Key Contributions & Scope'}
                       </h4>
                       <ul className="space-y-2 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
                         {job.description.map((line, i) => (

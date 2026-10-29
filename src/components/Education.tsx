@@ -3,7 +3,8 @@ import { education } from '../data/experience'
 import { useUi } from '../i18n/useUi'
 
 export default function Education() {
-  const { ui, t } = useUi()
+  const { ui, t, language } = useUi()
+  const isFil = language === 'fil'
 
   return (
     <section id="education" className="scroll-mt-28 space-y-4">
@@ -11,7 +12,9 @@ export default function Education() {
         <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground font-display">
           {ui.background}
         </h2>
-        <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400">Academic</span>
+        <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400">
+          {isFil ? 'Akademiko' : 'Academic'}
+        </span>
       </div>
 
       <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 p-5 sm:p-6 space-y-4">
@@ -24,7 +27,7 @@ export default function Education() {
               {t(education.degree)}
             </h3>
             <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-0.5">
-              {t(education.school)} • Class of {education.year}
+              {t(education.school)} • {isFil ? `Batch ng ${education.year}` : `Class of ${education.year}`}
             </p>
           </div>
         </div>
