@@ -2,13 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import {
   ArrowLeft,
   RotateCcw,
-  Sparkles,
   Trophy,
   Keyboard,
   Timer,
-  CheckCircle2,
-  AlertCircle,
-  Flame,
 } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 import { playClick, playPop, playKey, playSuccess } from '../utils/sound'

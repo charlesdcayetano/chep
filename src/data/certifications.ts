@@ -1,79 +1,138 @@
 export type Certification = {
+  id: string
   name: string
   issuer: string
+  shortIssuer: string
   year: string
-  date?: string
-  credentialId?: string
-  url?: string
-  fileUrl?: string
+  icon: string
   featured?: boolean
-  badge?: string
-  description?: string
-  skills?: string[]
 }
 
 export const certifications: Certification[] = [
   {
-    name: 'DICT ICT Proficiency Diagnostic Exam (DICT Passer)',
+    id: 'dict-proficiency',
+    name: 'DICT ICT Proficiency Diagnostic Exam Passer',
     issuer: 'Department of Information and Communications Technology (DICT)',
+    shortIssuer: 'DICT PHILIPPINES',
     year: '2025',
-    date: '2025',
+    icon: 'solar:diploma-verified-linear',
     featured: true,
-    badge: 'Part 1 Examination Passer',
-    description:
-      'Officially conferred by the Department of Information and Communications Technology. Grants civil service eligibility equivalent for government and enterprise ICT engineering roles.',
-    skills: ['Software Engineering', 'System Analysis', 'Database Concepts', 'Network Architecture'],
   },
   {
-    name: 'Python Level III (486 Hours OJT Residency)',
+    id: 'python-level-iii',
+    name: 'Python Level III (486-Hour Residency)',
     issuer: 'Digital Business Training Center (DBTC)',
+    shortIssuer: 'DBTC',
     year: '2025',
-    date: 'Feb 17 – Jun 9, 2025',
-    credentialId: 'DBTC Roxas City',
-    fileUrl: '/certificates/python-level-iii.pdf',
+    icon: 'logos:python',
     featured: true,
-    badge: '486-Hour Practical Residency',
-    description:
-      'Intensive 486-hour practical software residency covering full-stack Python development, database modeling, and real-world commercial software implementations.',
-    skills: ['Python 3', 'Database Modeling', 'API Integration', 'Enterprise Workflows'],
   },
   {
-    name: 'Introduction to CSS',
-    issuer: 'TESDA - National Institute for Technical Education and Skills Development',
+    id: 'vuejs-bootcamp',
+    name: 'Three-Day Vue.js Bootcamp',
+    issuer: 'Digital Business Training Center (DBTC)',
+    shortIssuer: 'DBTC · VUE.JS',
     year: '2025',
-    date: 'Nov 23, 2025',
-    fileUrl: '/certificates/introduction-to-css.pdf',
-    featured: false,
+    icon: 'logos:vue',
+    featured: true,
   },
   {
-    name: 'Microsoft Cybersecurity Course: Security, Compliance, and Identity Fundamentals',
-    issuer: 'TESDA - National Institute for Technical Education and Skills Development',
+    id: 'microsoft-cybersecurity',
+    name: 'Security, Compliance & Identity Fundamentals',
+    issuer: 'Microsoft & TESDA Cybersecurity Learning Path',
+    shortIssuer: 'MICROSOFT · TESDA',
     year: '2026',
-    date: 'Jun 26, 2026',
-    fileUrl: '/certificates/microsoft-cybersecurity.pdf',
-    featured: false,
+    icon: 'logos:microsoft-icon',
+    featured: true,
   },
   {
-    name: 'Installing and Configuring Computer Systems',
-    issuer: 'TESDA - National Institute for Technical Education and Skills Development',
+    id: 'opswat-cip',
+    name: 'Introduction to Critical Infrastructure Protection',
+    issuer: 'OPSWAT Academy',
+    shortIssuer: 'OPSWAT ACADEMY',
     year: '2026',
-    date: 'Jun 26, 2026',
-    fileUrl: '/certificates/installing-configuring-computer-systems.pdf',
-    featured: false,
+    icon: 'solar:shield-check-linear',
+    featured: true,
   },
   {
-    name: 'Maintaining Computer Systems and Networks',
-    issuer: 'TESDA - National Institute for Technical Education and Skills Development',
+    id: 'soc-splunk',
+    name: 'SOC Essentials: Investigating with Splunk',
+    issuer: 'Security Operations & Splunk Training',
+    shortIssuer: 'SPLUNK · SOC',
     year: '2026',
-    date: 'Jun 26, 2026',
-    fileUrl: '/certificates/maintaining-computer-systems-networks.pdf',
+    icon: 'simple-icons:splunk',
+    featured: true,
+  },
+  {
+    id: 'soc-threat-hunting',
+    name: 'SOC Essentials: Introduction to Threat Hunting',
+    issuer: 'Security Operations Defense Training',
+    shortIssuer: 'SOC DEFENSE',
+    year: '2026',
+    icon: 'solar:shield-check-linear',
     featured: false,
   },
   {
+    id: 'soc-defense-analyst',
+    name: 'Security Operations & the Defense Analyst',
+    issuer: 'Security Operations Defense Training',
+    shortIssuer: 'SOC DEFENSE',
+    year: '2026',
+    icon: 'solar:shield-check-linear',
+    featured: false,
+  },
+  {
+    id: 'tesda-installing-systems',
+    name: 'Installing & Configuring Computer Systems',
+    issuer: 'TESDA Computer Systems Servicing NC II',
+    shortIssuer: 'TESDA CSS NC II',
+    year: '2026',
+    icon: 'solar:cpu-bolt-linear',
+    featured: false,
+  },
+  {
+    id: 'tesda-maintaining-networks',
+    name: 'Maintaining Computer Systems & Networks',
+    issuer: 'TESDA Computer Systems Servicing NC II',
+    shortIssuer: 'TESDA CSS NC II',
+    year: '2026',
+    icon: 'solar:server-square-linear',
+    featured: false,
+  },
+  {
+    id: 'tesda-computer-servers',
+    name: 'Setting Up Computer Servers',
+    issuer: 'TESDA Computer Systems Servicing NC II',
+    shortIssuer: 'TESDA CSS NC II',
+    year: '2026',
+    icon: 'solar:server-square-linear',
+    featured: false,
+  },
+  {
+    id: 'tesda-computer-networks',
+    name: 'Setting Up Computer Networks',
+    issuer: 'TESDA Computer Systems Servicing NC II',
+    shortIssuer: 'TESDA CSS NC II',
+    year: '2026',
+    icon: 'solar:globe-linear',
+    featured: false,
+  },
+  {
+    id: 'tesda-intro-css',
+    name: 'Introduction to Computer Systems Servicing',
+    issuer: 'TESDA National Institute for Technical Education',
+    shortIssuer: 'TESDA',
+    year: '2025',
+    icon: 'solar:cpu-bolt-linear',
+    featured: false,
+  },
+  {
+    id: 'ama-computer-servicing',
     name: 'AMA Computer Servicing (BAS, MOUS)',
     issuer: 'AMA Computer College',
+    shortIssuer: 'AMA COLLEGE',
     year: '2014',
-    date: '2014',
+    icon: 'solar:diploma-verified-linear',
     featured: false,
   },
 ]

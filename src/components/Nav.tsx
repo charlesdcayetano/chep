@@ -12,11 +12,12 @@ import {
 import { Icon } from '@iconify/react'
 import LanguageToggle from './LanguageToggle'
 import ThemeToggle from './ThemeToggle'
+import SoundToggle from './SoundToggle'
 import { profile } from '../data/profile'
 import { useLanguage } from '../i18n/LanguageContext'
 import { playClick, playHover } from '../utils/sound'
 
-export type NavPage = 'home' | 'gear' | 'ask' | 'chat' | 'typing-test'
+export type NavPage = 'home' | 'gear' | 'resources' | 'ask' | 'chat' | 'typing-test'
 
 interface NavProps {
   onOpenSearch?: () => void
@@ -28,7 +29,6 @@ export default function Nav({ onOpenSearch, currentPage = 'home', onNavigate }: 
   const { language } = useLanguage()
   const [activeSection, setActiveSection] = useState<string>(currentPage === 'home' ? 'experience' : currentPage)
   const [hoveredSection, setHoveredSection] = useState<string | null>(null)
-  const [isDesktop, setIsDesktop] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -52,7 +52,6 @@ export default function Nav({ onOpenSearch, currentPage = 'home', onNavigate }: 
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 768px)')
     const update = () => {
-      setIsDesktop(mq.matches)
       if (mq.matches) {
         setMobileMenuOpen(false)
       }
@@ -161,6 +160,13 @@ export default function Nav({ onOpenSearch, currentPage = 'home', onNavigate }: 
       icon: 'solar:laptop-minimalistic-linear',
     },
     {
+      id: 'resources' as NavPage,
+      label: language === 'fil' ? 'Resources' : 'Resources',
+      tooltip: language === 'fil' ? 'Resources at Tools Directory' : 'Resources & Directory',
+      href: '#resources',
+      icon: 'solar:bookmark-square-minimalistic-linear',
+    },
+    {
       id: 'ask' as NavPage,
       label: language === 'fil' ? 'Magtanong' : 'Ask Anything',
       tooltip: language === 'fil' ? 'Magtanong kay Chep (AI)' : 'Ask Anything (AI Assistant)',
@@ -188,7 +194,13 @@ export default function Nav({ onOpenSearch, currentPage = 'home', onNavigate }: 
     setActiveSection(id)
     setMobileMenuOpen(false)
 
-    if (id === 'gear' || id === 'ask' || id === 'chat' || id === 'typing-test') {
+    if (
+      id === 'gear' ||
+      id === 'resources' ||
+      id === 'ask' ||
+      id === 'chat' ||
+      id === 'typing-test'
+    ) {
       onNavigate?.(id as NavPage)
       return
     }
@@ -277,66 +289,66 @@ export default function Nav({ onOpenSearch, currentPage = 'home', onNavigate }: 
                   </a>
                 )
               })}
-
-              {/* Vertical Divider separating Core Sections and Interactive App Modules */}
-              <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-800 mx-1.5 shrink-0" />
-
-              {/* Interactive Module Apps represented as Iconify Icons */}
-              <div className="flex items-center gap-1 shrink-0">
-                {appLinks.map((app) => {
-                  const isActive = currentPage === app.id
-                  const isHovered = hoveredSection === app.id
-
-                  return (
-                    <div key={app.id} className="relative group">
-                      <a
-                        href={app.href}
-                        aria-label={app.tooltip}
-                        onMouseEnter={() => {
-                          playHover()
-                          setHoveredSection(app.id)
-                        }}
-                        onClick={(e) => {
-                          e.preventDefault()
-                          handleLinkClick(app.id, app.href)
-                        }}
-                        className={`relative flex items-center justify-center rounded-full transition-all duration-200 ${
-                          isScrolled ? 'size-7' : 'size-8'
-                        } ${
-                          isActive
-                            ? 'text-foreground font-semibold bg-zinc-200/90 dark:bg-white/20 shadow-xs ring-1 ring-zinc-300 dark:ring-white/20'
-                            : isHovered
-                            ? 'text-foreground bg-zinc-100 dark:bg-zinc-800/70'
-                            : 'text-muted-foreground hover:text-foreground hover:bg-zinc-100/60 dark:hover:bg-zinc-800/40'
-                        }`}
-                      >
-                        <Icon
-                          icon={app.icon}
-                          className={`size-4 shrink-0 transition-transform duration-150 ${
-                            isHovered ? 'scale-110' : 'scale-100'
-                          }`}
-                        />
-                      </a>
-
-                      {/* Micro floating tooltip on hover */}
-                      <div className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-150 transform group-hover:translate-y-0 translate-y-1 z-50">
-                        <div className="relative px-2 py-0.5 rounded-md text-[10px] font-mono tracking-tight whitespace-nowrap bg-zinc-900 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900 shadow-md">
-                          {app.label}
-                          <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-x-4 border-x-transparent border-b-4 border-b-zinc-900 dark:border-b-zinc-100" />
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
             </div>
           </div>
 
-          {/* Right Action Tools: Search, Language, Theme, Mobile Menu */}
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Right Action Tools: Interactive Apps Dock, Search, Sound, Language, Theme, Mobile Menu */}
+          <div
+            className="flex items-center gap-1.5 shrink-0"
+            onMouseLeave={() => setHoveredSection(null)}
+          >
+            {/* Interactive Module Apps Segmented Toolbar (shadcn-style beside Search) */}
+            <div className="hidden md:inline-flex h-8 sm:h-8.5 items-center gap-0.5 rounded-md border border-zinc-200 dark:border-zinc-800 bg-background dark:bg-zinc-900/60 p-0.5 btn-inner-shadow shrink-0">
+              {appLinks.map((app) => {
+                const isActive = currentPage === app.id
+                const isHovered = hoveredSection === app.id
+
+                return (
+                  <div key={app.id} className="relative group">
+                    <a
+                      href={app.href}
+                      aria-label={app.tooltip}
+                      onMouseEnter={() => {
+                        playHover()
+                        setHoveredSection(app.id)
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        handleLinkClick(app.id, app.href)
+                      }}
+                      className={`relative flex items-center justify-center h-7 w-7 rounded-[5px] transition-all duration-150 ${
+                        isActive
+                          ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-2xs'
+                          : 'text-zinc-600 dark:text-zinc-300 hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                      }`}
+                    >
+                      <Icon
+                        icon={app.icon}
+                        className={`size-[15px] shrink-0 transition-transform duration-150 ${
+                          isHovered && !isActive ? 'scale-110' : 'scale-100'
+                        }`}
+                      />
+                    </a>
+
+                    {/* Micro floating tooltip on hover */}
+                    <div className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-150 transform group-hover:translate-y-0 translate-y-1 z-50">
+                      <div className="relative px-2 py-0.5 rounded-md text-[10px] font-mono tracking-tight whitespace-nowrap bg-zinc-900 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900 shadow-md">
+                        {app.label}
+                        <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-x-4 border-x-transparent border-b-4 border-b-zinc-900 dark:border-b-zinc-100" />
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
             <button
               type="button"
-              onClick={onOpenSearch}
+              onClick={() => {
+                playClick()
+                onOpenSearch?.()
+              }}
+              onMouseEnter={playHover}
               aria-label="Search Ctrl+K"
               className={`relative flex h-8 sm:h-8.5 items-center justify-center gap-1.5 rounded-md border border-zinc-200 dark:border-zinc-800 bg-background dark:bg-zinc-900/60 text-xs font-normal shadow-sm transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-foreground btn-inner-shadow active:scale-[0.98] shrink-0 ${
                 isScrolled ? 'px-2' : 'px-2 sm:px-2.5'
@@ -352,6 +364,11 @@ export default function Nav({ onOpenSearch, currentPage = 'home', onNavigate }: 
                 </>
               )}
             </button>
+
+            {/* Sound Toggle right beside Search */}
+            <div className="hidden sm:inline-flex shrink-0">
+              <SoundToggle />
+            </div>
 
             {/* Language toggle: on tablet/desktop displayed directly in bar */}
             <div className="hidden sm:inline-flex shrink-0">
@@ -485,6 +502,14 @@ export default function Nav({ onOpenSearch, currentPage = 'home', onNavigate }: 
 
         {/* Quick Actions & Language Toggle */}
         <div className="mt-2 pt-2 border-t border-border/40 dark:border-white/10 space-y-2">
+          {/* Sound row for mobile view */}
+          <div className="flex items-center justify-between px-3 py-1">
+            <span className="text-xs text-muted-foreground font-medium">
+              {language === 'fil' ? 'Tunog ng UI' : 'UI Sound'}
+            </span>
+            <SoundToggle compact />
+          </div>
+
           {/* Language row for mobile view */}
           <div className="flex items-center justify-between px-3 py-1">
             <span className="text-xs text-muted-foreground font-medium">

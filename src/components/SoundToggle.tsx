@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import { Volume2, VolumeX } from 'lucide-react'
-import { isSoundEnabled, setSoundEnabled, playToggle } from '../utils/sound'
+import { isSoundEnabled, setSoundEnabled, playToggle, playHover } from '../utils/sound'
 import { useLanguage } from '../i18n/LanguageContext'
 
-export default function SoundToggle() {
+interface SoundToggleProps {
+  compact?: boolean
+}
+
+export default function SoundToggle({ compact = false }: SoundToggleProps) {
   const { language } = useLanguage()
   const [enabled, setEnabled] = useState(isSoundEnabled)
-  const [isHovered, setIsHovered] = useState(false)
 
   useEffect(() => {
     const handleToggle = (e: Event) => {
@@ -35,56 +38,64 @@ export default function SoundToggle() {
     }
   }
 
-  const tooltipText = enabled
+  const label = enabled
     ? language === 'fil'
-      ? 'May Tunog (Pindutin para i-mute)'
-      : 'Sound On (Click to mute)'
+      ? 'Tunog: Bukas'
+      : 'Sound: On'
     : language === 'fil'
-      ? 'Naka-mute ang Tunog (Pindutin para paganahin)'
-      : 'Sound Muted (Click to turn on)'
+      ? 'Tunog: Mute'
+      : 'Sound: Off'
+
+  if (compact) {
+    return (
+      <button
+        type="button"
+        onClick={handleToggleClick}
+        aria-label={label}
+        aria-pressed={enabled}
+        className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium transition-all active:scale-95 ${
+          enabled
+            ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
+            : 'border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 text-muted-foreground'
+        }`}
+      >
+        {enabled ? <Volume2 size={13} /> : <VolumeX size={13} />}
+        <span>{enabled ? (language === 'fil' ? 'Bukas' : 'On') : 'Muted'}</span>
+      </button>
+    )
+  }
 
   return (
-    <div className="fixed bottom-5 left-5 z-40">
-      <div className="relative group">
-        <button
-          type="button"
-          onClick={handleToggleClick}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          aria-label={tooltipText}
-          aria-pressed={enabled}
-          className={`flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border transition-all duration-200 backdrop-blur-md shadow-md active:scale-95 ${
-            enabled
-              ? 'border-zinc-300 dark:border-zinc-700 bg-white/90 dark:bg-zinc-900/90 text-foreground hover:border-zinc-400 dark:hover:border-zinc-600 shadow-zinc-200/50 dark:shadow-black/40'
-              : 'border-zinc-200 dark:border-zinc-800 bg-zinc-100/80 dark:bg-zinc-900/60 text-zinc-400 dark:text-zinc-500 hover:text-foreground'
-          }`}
-        >
-          {enabled ? (
-            <div className="relative flex items-center justify-center">
-              <Volume2 size={17} className="transition-transform group-hover:scale-110" />
-              {/* Subtle pulsing sound indicator dot */}
-              <span className="absolute -top-1 -right-1 flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-            </div>
-          ) : (
-            <VolumeX size={17} className="transition-transform group-hover:scale-110 opacity-70" />
-          )}
-        </button>
+    <div className="relative group shrink-0">
+      <button
+        type="button"
+        onClick={handleToggleClick}
+        onMouseEnter={playHover}
+        aria-label={label}
+        aria-pressed={enabled}
+        className={`relative inline-flex h-8 sm:h-8.5 w-8 sm:w-8.5 items-center justify-center rounded-md border transition-colors duration-150 active:scale-95 btn-inner-shadow ${
+          enabled
+            ? 'border-zinc-200 dark:border-zinc-800 bg-background dark:bg-zinc-900/60 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-foreground'
+            : 'border-zinc-200 dark:border-zinc-800 bg-background dark:bg-zinc-900/60 text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-foreground'
+        }`}
+      >
+        {enabled ? (
+          <>
+            <Volume2 size={15} aria-hidden="true" />
+            <span className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-emerald-500" />
+          </>
+        ) : (
+          <VolumeX size={15} aria-hidden="true" />
+        )}
+      </button>
 
-        {/* Floating Tooltip Bubble */}
-        <div
-          className={`absolute left-0 bottom-full mb-2 pointer-events-none transition-all duration-200 ${
-            isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
-          }`}
-        >
-          <div className="whitespace-nowrap px-2.5 py-1 rounded-md text-[11px] font-medium font-sans bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-md">
-            {tooltipText}
-          </div>
+      {/* Micro floating tooltip matching navbar app icons */}
+      <div className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-150 transform group-hover:translate-y-0 translate-y-1 z-50">
+        <div className="relative px-2 py-0.5 rounded-md text-[10px] font-mono tracking-tight whitespace-nowrap bg-zinc-900 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900 shadow-md">
+          {label}
+          <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-x-4 border-x-transparent border-b-4 border-b-zinc-900 dark:border-b-zinc-100" />
         </div>
       </div>
     </div>
   )
 }
-

@@ -62,6 +62,16 @@ export default function Footer() {
             {isFil ? 'Gamit (Gear)' : 'Gear'}
           </a>
           <a
+            href="#resources"
+            onClick={(e) => {
+              e.preventDefault()
+              navigateToHash('#resources')
+            }}
+            className="hover:text-foreground transition-colors"
+          >
+            Resources
+          </a>
+          <a
             href="#ask"
             onClick={(e) => {
               e.preventDefault()

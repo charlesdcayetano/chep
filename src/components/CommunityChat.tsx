@@ -1,18 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   ArrowLeft,
   MessageSquare,
   Send,
-  Sparkles,
   Users,
-  Heart,
-  Flame,
-  Rocket,
-  ThumbsUp,
-  Tag,
+  ShieldAlert,
 } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
-import { playClick, playPop, playSuccess } from '../utils/sound'
+import { playPop, playSuccess } from '../utils/sound'
+import { containsProfanity } from '../utils/profanityFilter'
 
 interface ChatMessage {
   id: string
@@ -43,7 +39,15 @@ export default function CommunityChat({ onBackToHome }: CommunityChatProps) {
     if (typeof window !== 'undefined') {
       try {
         const saved = localStorage.getItem(STORAGE_KEY)
-        if (saved) return JSON.parse(saved)
+        if (saved) {
+          const parsed: ChatMessage[] = JSON.parse(saved)
+          return parsed.filter(
+            (m) =>
+              !containsProfanity(m.name) &&
+              !containsProfanity(m.role) &&
+              !containsProfanity(m.message)
+          )
+        }
       } catch {
         // Fallback to empty
       }
@@ -56,6 +60,7 @@ export default function CommunityChat({ onBackToHome }: CommunityChatProps) {
   const [message, setMessage] = useState('')
   const [selectedAvatar, setSelectedAvatar] = useState('👨‍💻')
   const [userReacted, setUserReacted] = useState<Record<string, boolean>>({})
+  const [profanityError, setProfanityError] = useState(false)
 
   const avatars = ['👨‍💻', '🚀', '⚡', '💻', '🎯', '👾', '☕', '🛠️']
   const quickRoles = [
@@ -70,6 +75,17 @@ export default function CommunityChat({ onBackToHome }: CommunityChatProps) {
     e.preventDefault()
     if (!name.trim() || !message.trim()) return
 
+    if (
+      containsProfanity(name) ||
+      containsProfanity(role) ||
+      containsProfanity(message)
+    ) {
+      playPop()
+      setProfanityError(true)
+      return
+    }
+
+    setProfanityError(false)
     playSuccess()
 
     const newMsg: ChatMessage = {
@@ -179,9 +195,12 @@ export default function CommunityChat({ onBackToHome }: CommunityChatProps) {
                   type="text"
                   required
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => {
+                    setName(e.target.value)
+                    if (profanityError) setProfanityError(false)
+                  }}
                   placeholder={isFil ? 'hal. Alex Santos (@alex)' : 'e.g. Alex Santos (@alex)'}
-                  className="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-foreground text-xs placeholder:text-zinc-600 dark:placeholder:text-zinc-400 focus:outline-hidden focus:ring-1 focus:ring-foreground transition-all"
+                  className="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-foreground text-xs placeholder:text-zinc-600 dark:placeholder:text-zinc-400 focus:outline-none focus:ring-1 focus:ring-foreground transition-all"
                 />
               </div>
 
@@ -193,9 +212,12 @@ export default function CommunityChat({ onBackToHome }: CommunityChatProps) {
                 <input
                   type="text"
                   value={role}
-                  onChange={(e) => setRole(e.target.value)}
+                  onChange={(e) => {
+                    setRole(e.target.value)
+                    if (profanityError) setProfanityError(false)
+                  }}
                   placeholder={isFil ? 'hal. Frontend Dev / Recruiter' : 'e.g. Frontend Dev / Visitor'}
-                  className="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-foreground text-xs placeholder:text-zinc-600 dark:placeholder:text-zinc-400 focus:outline-hidden focus:ring-1 focus:ring-foreground transition-all"
+                  className="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-foreground text-xs placeholder:text-zinc-600 dark:placeholder:text-zinc-400 focus:outline-none focus:ring-1 focus:ring-foreground transition-all"
                 />
               </div>
             </div>
@@ -256,19 +278,36 @@ export default function CommunityChat({ onBackToHome }: CommunityChatProps) {
                 rows={3}
                 maxLength={300}
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) => {
+                  setMessage(e.target.value)
+                  if (profanityError) setProfanityError(false)
+                }}
                 placeholder={
                   isFil
                     ? 'Kamustahin si Chep, mag-iwan ng komento sa portfolio, o mag-share ng thoughts...'
                     : 'Say hi, drop a note on the portfolio, or share your thoughts...'
                 }
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-foreground text-xs sm:text-sm placeholder:text-zinc-600 dark:placeholder:text-zinc-400 focus:outline-hidden focus:ring-1 focus:ring-foreground transition-all resize-none"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-foreground text-xs sm:text-sm placeholder:text-zinc-600 dark:placeholder:text-zinc-400 focus:outline-none focus:ring-1 focus:ring-foreground transition-all resize-none"
               />
               <div className="flex justify-between items-center text-[10px] text-zinc-600 dark:text-zinc-400 mt-1">
                 <span>{isFil ? 'Maging magalang at magiliw' : 'Be kind and constructive'}</span>
                 <span>{message.length} / 300</span>
               </div>
             </div>
+
+            {profanityError && (
+              <div
+                role="alert"
+                className="flex items-center gap-2 rounded-xl border border-rose-500/30 bg-rose-500/10 px-3.5 py-2.5 text-xs text-rose-700 dark:text-rose-400"
+              >
+                <ShieldAlert size={15} className="shrink-0" />
+                <span>
+                  {isFil
+                    ? 'Na-block ang post: Bawal ang masasamang salita o mura sa anumang lenggwahe.'
+                    : 'Post blocked: Profanity and offensive language in any language are not allowed.'}
+                </span>
+              </div>
+            )}
 
             {/* Submit Button */}
             <div className="flex justify-end">

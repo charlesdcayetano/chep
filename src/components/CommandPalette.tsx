@@ -11,6 +11,7 @@ import {
   Languages,
   Code2,
   Laptop,
+  Bookmark,
   Bot,
   MessagesSquare,
   Keyboard,
@@ -20,9 +21,10 @@ import { experience } from '../data/experience'
 import { currentJob } from '../data/currentJob'
 import { profile } from '../data/profile'
 import { gearList } from '../data/gear'
+import { resourcesList } from '../data/resources'
 import { getStoredTheme, setTheme } from '../utils/theme'
 import { useLanguage } from '../i18n/LanguageContext'
-import { playClick, playPop } from '../utils/sound'
+import { playClick } from '../utils/sound'
 import type { NavPage } from './Nav'
 
 interface CommandPaletteProps {
@@ -35,7 +37,7 @@ interface CommandItem {
   id: string
   title: string
   subtitle?: string
-  category: 'Navigation' | 'Projects' | 'Gear' | 'Experience' | 'Actions'
+  category: 'Navigation' | 'Projects' | 'Gear' | 'Resources' | 'Experience' | 'Actions'
   icon: React.ReactNode
   onSelect: () => void
 }
@@ -141,6 +143,18 @@ export default function CommandPalette({ isOpen, onClose, onNavigate }: CommandP
       },
     },
     {
+      id: 'nav-resources',
+      title: language === 'fil' ? 'Resources at Developer Directory' : 'Resources & Developer Directory',
+      subtitle: `Browse ${resourcesList.length} profiles, repos, dev tools, cloud hosts & 15 built systems`,
+      category: 'Navigation',
+      icon: <Bookmark size={16} />,
+      onSelect: () => {
+        playClick()
+        onClose()
+        onNavigate?.('resources')
+      },
+    },
+    {
       id: 'nav-ask',
       title: language === 'fil' ? 'Magtanong Kahit Ano (Ask Anything)' : 'Ask Anything (AI Assistant)',
       subtitle: language === 'fil' ? 'Tanungin ang AI tungkol sa projects, tech stack, at background ni Chep' : "Interactive AI answering questions about Chep's career & stack",
@@ -235,6 +249,19 @@ export default function CommandPalette({ isOpen, onClose, onNavigate }: CommandP
       icon: <Laptop size={16} />,
       onSelect: () => {
         window.open(g.url, '_blank')
+        onClose()
+      },
+    })),
+
+    // Developer Resources
+    ...resourcesList.map((r) => ({
+      id: `res-${r.id}`,
+      title: r.name,
+      subtitle: `${r.category} • ${r.handleOrDomain}`,
+      category: 'Resources' as const,
+      icon: <Bookmark size={16} />,
+      onSelect: () => {
+        window.open(r.url, '_blank')
         onClose()
       },
     })),

@@ -125,6 +125,17 @@ button:focus-visible {
   background: #3f3f46;
 }
 
+/* Hide scrollbars cleanly where horizontal pill rows are used */
+.scrollbar-none,
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Design Tokens & Helper Classes */
 .rule {
   border-color: var(--border);

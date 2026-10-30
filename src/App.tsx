@@ -5,7 +5,6 @@ import Nav, { type NavPage } from './components/Nav'
 import ProfileHeader from './components/ProfileHeader'
 import Experience from './components/Experience'
 import DeferredSection from './components/DeferredSection'
-import SoundToggle from './components/SoundToggle'
 
 const Projects = lazy(() => import('./components/Projects'))
 const About = lazy(() => import('./components/About'))
@@ -17,6 +16,7 @@ const Contact = lazy(() => import('./components/Contact'))
 const Footer = lazy(() => import('./components/Footer'))
 const CommandPalette = lazy(() => import('./components/CommandPalette'))
 const Gear = lazy(() => import('./components/Gear'))
+const Resources = lazy(() => import('./components/Resources'))
 const AskAnything = lazy(() => import('./components/AskAnything'))
 const CommunityChat = lazy(() => import('./components/CommunityChat'))
 const TypingTest = lazy(() => import('./components/TypingTest'))
@@ -45,6 +45,7 @@ function getPageFromHash(): NavPage {
   if (typeof window === 'undefined') return 'home'
   const hash = window.location.hash
   if (hash === '#gear') return 'gear'
+  if (hash === '#resources') return 'resources'
   if (hash === '#ask') return 'ask'
   if (hash === '#chat') return 'chat'
   if (hash === '#typing-test') return 'typing-test'
@@ -140,6 +141,15 @@ function PortfolioContent() {
           </Suspense>
         )}
 
+        {currentPage === 'resources' && (
+          <Suspense fallback={<div className="min-h-screen pt-40 text-center font-mono text-xs text-muted-foreground">Loading resources directory...</div>}>
+            <Resources onBackToHome={(target) => handleNavigate('home', target)} />
+            <div className="mx-auto max-w-6xl px-4 sm:px-6 pb-16">
+              <Footer />
+            </div>
+          </Suspense>
+        )}
+
         {currentPage === 'ask' && (
           <Suspense fallback={<div className="min-h-screen pt-40 text-center font-mono text-xs text-muted-foreground">Loading AI assistant...</div>}>
             <AskAnything onBackToHome={(target) => handleNavigate('home', target)} />
@@ -207,9 +217,6 @@ function PortfolioContent() {
             </div>
           </div>
         )}
-
-        {/* Global Floating Sound Speaker Toggle in Lower Left Corner */}
-        <SoundToggle />
       </div>
     </div>
   )
