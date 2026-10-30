@@ -17,16 +17,20 @@ export const currentJob: {
   period: { en: 'Present', fil: 'Kasalukuyan' },
   description: [
     {
-      en: 'Lead developer for core cooperative platforms: LinkCoop (Cable Internet & Billing Management System), Hulamverde (Loan Management & Billing System), and PVDCI IP Tracker (Subscriber & Modem NOC).',
-      fil: 'Pangunahing developer para sa mga sistema ng kooperatiba: LinkCoop (Cable Internet & Billing Management System), Hulamverde (Loan Management & Billing System), at PVDCI IP Tracker (Subscriber & Modem NOC).',
+      en: 'Develop and maintain cooperative systems for member services, including LinkCoop (Cable Internet & Billing), Hulamverde (Loan Management), and PVDCI IP Tracker (Subscriber & Modem NOC), and assist with PVDCI website updates.',
+      fil: 'Gumagawa at nagpapanatili ng mga sistema para sa serbisyo ng mga miyembro, kabilang ang LinkCoop (Cable Internet & Billing), Hulamverde (Loan Management), at PVDCI IP Tracker (Subscriber & Modem NOC), at tumutulong sa pag-update ng website ng PVDCI.',
     },
     {
-      en: 'Designed and create automated workflows for subscriber billing, loan amortization schedules, interest computation, and member payment records.',
-      fil: 'Nagdisenyo at nagpatupad ng mga automated workflow para sa subscriber billing, loan amortization schedules, interest computation, at records ng pagbabayad ng miyembro.',
+      en: 'Provide IT support to employees and branch offices, maintaining and troubleshooting computers, printers, software, and network connections, with regular preventive maintenance and service documentation.',
+      fil: 'Nagbibigay ng IT support sa mga empleyado at sangay, at nagpapanatili at nag-aayos ng mga computer, printer, software, at koneksyon sa network, kasama ang regular na preventive maintenance at pagtatala ng mga serbisyong ginawa.',
     },
     {
-      en: 'Provide day-to-day technical support, managing computer hardware, software installations, and network infrastructure to maintain uninterrupted operations.',
-      fil: 'Nagbibigay ng pang-araw-araw na technical support, nagpapanatili ng computer hardware, software installations, at network infrastructure para sa tuloy-tuloy na operasyon.',
+      en: 'Assist with preparing and validating monthly Credit Information Corporation (CIC) reports, and help protect the security and confidentiality of cooperative information.',
+      fil: 'Tumutulong sa paghahanda at pagpapatunay ng buwanang ulat para sa Credit Information Corporation (CIC), at sa pagprotekta ng seguridad at pagiging kumpidensyal ng impormasyon ng kooperatiba.',
+    },
+    {
+      en: 'Create multimedia marketing materials and ID designs to promote cooperative products, services, and membership campaigns.',
+      fil: 'Gumagawa ng multimedia marketing materials at disenyo ng ID upang itaguyod ang mga produkto, serbisyo, at kampanya para sa pagiging miyembro ng kooperatiba.',
     },
   ],
 }
